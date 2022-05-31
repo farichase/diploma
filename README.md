@@ -3,7 +3,7 @@
 
 ### Запуск
 ```sh
-	git clone https://github.com/CrowleyHell/SuperCompiler.git
+	git clone https://github.com/farichase/diploma.git
 	cd SuperCompiler/my-app
 	chmod +x setup.sh
 	./setup.sh
