@@ -1,0 +1,17 @@
+$ENTRY Go { = <Prout <Ital-Engl 'cavallo'>>; }
+
+* Translate an Italian word into English
+  Ital-Engl { e.W = <Trans (e.W) <Table>>; }
+
+  Table { = (('cane') 'dog')
+            (('gatto') 'cat')
+            (('cavallo') 'horse')
+            (('rana') 'frog')
+            (('porco') 'pig') ;
+        }
+
+
+* Translate a word by table
+  Trans { 
+     (e.Word) e.1 ((e.Word) e.Trans) e.2 = e.Trans;
+     (e.Word) e.1  =  '***';  }

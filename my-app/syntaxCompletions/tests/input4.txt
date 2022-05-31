@@ -1,0 +1,20 @@
+$ENTRY Go { = <Prout <Sub-a-z 'ccccabbadddzccc'>>; }
+
+Find-z {
+   (e.1'a') e.X'z'e.2 = (e.1) 'a'e.X'z' (e.2);
+   (e.1) e.2 = <Prout 'No substring a-z'>; 
+}
+
+Sub-a-z {
+   e.1 = <Sub-a-z-1 ()e.1>; 
+}
+ 
+Sub-a-z-1 {
+*1.'a' is found. Control is passed to Find-z. 
+   (e.1) 'a'e.2 = <Find-z (e.1'a') e.2>;
+*2.Recursion: jump over any symbol distinct 
+*   from 'a'. 
+   (e.1) s.X e.2 = <Sub-a-z-1 (e.1 s.X) e.2>;
+*3.The string is exhausted without finding 'a'
+   (e.1) = <Prout 'No substring a-z'>; 
+}

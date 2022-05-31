@@ -1,0 +1,84 @@
+/* Прототип модуля пересборки из внутреннего языка MSCP во входной язык графов. */
+
+$ENTRY Go{
+  , <ExistFile 'trace_mode'> :
+ {True = <Open 'r' 3 'trace_mode'><TraceMode <Get 3>>;
+   False = <Open 'r' 1 'trace_scp'><Open 'w' 2 'log.scpgraph'><Iterate><Close 1><Close 2>;
+  };
+  }
+
+TraceMode {
+ e.0'Total'e.2 = <Close 3><Open 'r' 1 'trace_scp'><Open 'w' 2 'log.scpgraph'><Iterate><Close 1><Close 2>;
+ e.0'Current'e.2 = <Close 3><Open 'r' 1 'curr_trace'><Open 'w' 2 'log.scpgraph'><NIterate <Get 1>><Close 1><Close 2>;
+}
+
+NIterate {
+ e.x 0 = <Putout 2 <Format <PairBracks ( ) e.x>>>;
+ e.x = <Putout 2 <Format <PairBracks ( ) e.x>>>;
+}
+
+Iterate {
+ /* EMPTY */, <PairBracks ( )<ReadGraph Total <Get 1>>> : 
+ {e.Expr 0
+	 = <Putout 2 <Format e.Expr>>;
+ e.Expr
+	 = <Putout 2 <Format e.Expr>>;
+	};
+}
+
+ReadGraph {
+   Current e.X = e.X;
+   Total 'Roots of the functions:'e.x, <Get 1> : e.y, <Get 1> : e.z = <Get 1>; 
+   Total e.X = <ReadGraph Total <Get 1>>;
+}
+
+ProcAsgs {
+ 'Always'e.ee = /* EMPTY */;
+ e.Z = e.Z;
+}
+
+Format {
+ (e.NodeDeclaration('Looped'e.Loop1 (e.AncNode)'With 'e.LoopAsgs)(e.NodeName)
+ ((e.Asgs)(e.Eqs)(/* EMPTY */)(e.FullConf)(e.Stack))) e.Nodes
+	 = (Node (Looped)(e.NodeName)(<ProcAsgs e.Asgs>)(()(<Convert e.FullConf>))(Looped to (e.AncNode)(e.LoopAsgs))) 
+	 <Format e.Nodes>;
+(e.NodeDeclaration' 'e.NodeStatus' '(e.NodeName)
+ ((e.Asgs)(e.Eqs)(('Let 'e.LetData'In '(e.LetExpr)))(e.FullConf)(e.Stack))('Children 'e.Children)) e.Nodes
+	 = (Node (e.NodeStatus)(e.NodeName)(<ProcAsgs e.Asgs>)(let <ExtractLetExp e.LetData> in (<Convert e.LetExpr>))
+		(Children <Format e.Children>))<Format e.Nodes>;
+ (e.NodeDeclaration' 'e.NodeStatus' '(e.NodeName)
+ ((e.Asgs)(e.Eqs)(/* EMPTY */)(e.FullConf)(e.Stack))('Children 'e.Children)) e.Nodes
+	 = (Node (e.NodeStatus)(e.NodeName)(<ProcAsgs e.Asgs>)((/* EMPTY */)(<Convert e.FullConf>))
+		(Children <Format e.Children>))<Format e.Nodes>;
+ (e.NodeDeclaration' 'e.NodeStatus' '(e.NodeName)
+ ((e.Asgs)(e.Eqs)(/* EMPTY */)(e.FullConf)(e.Stack))) e.Nodes
+	 = (Node (e.NodeStatus)(e.NodeName)(<ProcAsgs e.Asgs>)((/* EMPTY */)(<Convert e.FullConf>)))<Format e.Nodes>;
+ /* EMPTY */ = /* EMPTY */;
+}
+
+ExtractLetExp {
+  ((e.Name)('assign '(e.ParData)e.ee(e.Expr)))e.Rest = (assign (e.ParData)(<Convert e.Expr>))<ExtractLetExp e.Rest>;
+  /* EMPTY */ = /* EMPTY */;
+}
+
+Convert {
+  e.0 ('*'e.1) e.2 = <Convert e.0>('*'<Convert e.1>)<Convert e.2>;
+  e.0 ('call '((e.Name' '(e.Mark))e.Rest)e.ee('args '('arg 'e.Arg))) e.1
+	  = <Convert e.0> (call e.Name (arg <Convert e.Arg>))<Convert e.1>;
+  e.0 ('call '(e.Name' 'e.Rest)e.ee('args '('arg 'e.Arg))) e.1
+	  = e.0 (call e.Name (arg <Convert e.Arg>))<Convert e.1>;
+  e.Z = e.Z;
+}
+
+PairBracks {
+ e.Brs(e.PredLast)(e.Last)')'e.Input = <PairBracks e.Brs(e.PredLast (e.Last))e.Input>;
+ e.Brs(e.Last)'('e.Input = <PairBracks e.Brs (e.Last)()e.Input>;
+ e.Brs(e.Last) s.Sym e.Input = <PairBracks e.Brs(e.Last s.Sym) e.Input>;
+ (e.All)/* EMPTY */ = e.All; 
+}
+
+NoBracks {
+  e.1'('e.2 = False;
+  e.Z = True;
+}
+

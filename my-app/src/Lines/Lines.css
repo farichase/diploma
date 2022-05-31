@@ -1,0 +1,10 @@
+.Lines {
+    width: 50px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    color:rgba(79, 107, 125, 0.6);
+    font-size: 16px;
+    height: 820px;
+
+}

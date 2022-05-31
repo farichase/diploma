@@ -1,0 +1,77 @@
+=================================================================================
+  GENERALIZED UPWARDS: (0 0 0 ) and (0 0 ) with upper config
+    (Call (LogAnd 1 )True (Call (IsEqual 3 )(Bracket  (Variable e 1 )fabac(Variable e 2 ))(Bracket  (Call (Repl_a_v 4 )(Call ((Repl_a_v (1 2 ))5 )(Variable e x ))))))
+
+  Generalized Pattern: 
+    (Call (LogAnd 8 )True (Call (IsEqual 9 )(Bracket  (Variable e 1 )fabac(Variable e 2 ))(Bracket  (Call (Repl_a_v 10 )(Variable e 67 )(Call ((Repl_a_v (1 2 ))11 )(Variable e 68 ))))))
+  Generalized MGUs: 
+    (assign (par e 67 )()((par e 14 )ba))
+    (assign (par e 68 )((par e x ))((par e 15 )))
+  Generalized Equations: 
+    (OR (D)(((par e 67 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fab)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fa)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )f)))
+
+*********************************************************************************
+
+Getting negative conditions from rules set:
+
+produce conditions:
+
+=================================================================================
+  FOLDING ATTEMPT: (0 0 0 0 ) and (0 0 0 ) with upper config
+    (Call (LogAnd 8 )True (Call (IsEqual 9 )(Bracket  (Variable e 1 )fabac(Variable e 2 ))(Bracket  (Call (Repl_a_v 10 )(Variable e 67 )(Call ((Repl_a_v (1 2 ))11 )(Variable e 68 ))))))
+
+  Generalized Pattern: 
+    (Call (LogAnd 14 )True (Call (IsEqual 15 )(Bracket  (Variable e 1 )fabac(Variable e 2 ))(Bracket  (Call (Repl_a_v 16 )(Variable e 338 )(Call ((Repl_a_v (1 2 ))17 )(Variable e 339 ))))))
+  Generalized MGUs: 
+    (assign (par e 338 )((par e 67 ))((par e 67 )(par e 182 )ba))
+    (assign (par e 339 )((par e 68 ))((par e 183 )))
+  Generalized Equations: 
+    (OR (T)(((par e 338 ))to ((var e Neg1 )fab)))
+    (OR (T)(((par e 338 ))to ((var e Neg1 )fa)))
+    (OR (T)(((par e 338 ))to ((var e Neg1 )f)))
+********************************************************************************
+
+Looped To (0 0 0 )With (assign (par e 67 )((par e 338 )))(assign (par e 68 )((par e 339 )))and (Generic )(Negative (OR (T)(((par e 338 ))to ((var e Neg1 )fab)))(OR (T)(((par e 338 ))to ((var e Neg1 )fa)))(OR (T)(((par e 338 ))to ((var e Neg1 )f))))
+  Checking embedding:
+
+    (OR (D)(((par e 67 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+    (OR (T)(((par e 67 ))to ((var e Neg3 )fab)))
+    (OR (T)(((par e 67 ))to ((var e Neg4 )fa)))
+    (OR (T)(((par e 67 ))to ((var e Neg5 )f)))
+    (OR (D)(((par e 1 ))to ((var e Neg6 )fabac(var e Neg7 ))))
+    (OR (D)(((par e 182 ))to ((var e Neg8 )ab(var e Neg9 ))))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )fab)))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )fa)))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )f)))
+
+    (OR (D)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )fabac(var e Neg2 ))))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )fab)))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )fa)))
+    (OR (T)(((par e 67 )(par e 182 )ba)to ((var e Neg1 )f)))
+    (OR (D)(((par e 1 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+
+  Equations are cut:
+  to
+
+  Inequalities are cut:
+    (OR (D)(((par e 67 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fab)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fa)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )f)))
+    (OR (D)(((par e 1 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+  to
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fab)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )fa)))
+    (OR (T)(((par e 67 ))to ((var e Neg1 )f)))
+    (OR (D)(((par e 1 ))to ((var e Neg1 )fabac(var e Neg2 ))))
+    (OR (T)(((par e 338 ))to ((var e Neg1 )fab)))
+    (OR (T)(((par e 338 ))to ((var e Neg1 )fa)))
+    (OR (T)(((par e 338 ))to ((var e Neg1 )f)))
+=================================================================================
+  FOLDING ATTEMPT: (0 0 0 0 ) and (0 0 0 ) with upper config
+    (Call (LogAnd 8 )True (Call (IsEqual 9 )(Bracket  (Variable e 1 )fabac(Variable e 2 ))(Bracket  (Call (Repl_a_v 10 )(Variable e 67 )(Call ((Repl_a_v (1 2 ))11 )(Variable e 68 ))))))
+
+  Genera

@@ -1,0 +1,13 @@
+*$FROM accessMSCP 
+*$FROM AnalyzeFunDef 
+*$FROM basics 
+*$FROM c-prefal 
+*$FROM DiofEqs 
+*$FROM Drive 
+*$FROM Generalize 
+*$FROM prefal 
+*$FROM residual 
+*$FROM Stack 
+*$FROM Unfold_SCP 
+*$FROM WordEqsCases 
+*$FROM WordEquations 

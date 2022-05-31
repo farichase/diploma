@@ -1,0 +1,1518 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> unit
+Rule 1     unit -> <empty>
+Rule 2     unit -> declaration body
+Rule 3     unit -> declaration body unit
+Rule 4     declaration -> TkDirective TkIdentifier
+Rule 5     declaration -> TkIdentifier
+Rule 6     body -> TkOpenBlock sentences TkCloseBlock
+Rule 7     sentences -> sentence TkSemicolon
+Rule 8     sentences -> sentence TkSemicolon sentences
+Rule 9     sentence -> condExpr
+Rule 10    sentence -> condExpr rightpart
+Rule 11    sentence -> leftpart rightpart
+Rule 12    leftpart -> <empty>
+Rule 13    leftpart -> pattern
+Rule 14    condExpr -> pattern condition
+Rule 15    condition -> TkComma result TkColon condPattern
+Rule 16    condPattern -> TkOpenBlock sentences TkCloseBlock
+Rule 17    condPattern -> pattern
+Rule 18    pattern -> TkVar
+Rule 19    pattern -> TkValue
+Rule 20    pattern -> TkBool
+Rule 21    pattern -> TkBool pattern
+Rule 22    pattern -> TkVar pattern
+Rule 23    pattern -> bracketArgs
+Rule 24    pattern -> bracketArgs pattern
+Rule 25    pattern -> TkValue pattern
+Rule 26    rightpart -> TkReplace
+Rule 27    rightpart -> TkReplace result
+Rule 28    result -> <empty>
+Rule 29    result -> TkVar
+Rule 30    result -> TkValue
+Rule 31    result -> TkBool
+Rule 32    result -> TkVar result
+Rule 33    result -> TkValue result
+Rule 34    result -> bracketArgs
+Rule 35    result -> bracketArgs result
+Rule 36    result -> call result TkCloseCall
+Rule 37    result -> call result TkCloseCall result
+Rule 38    bracketArgs -> TkOpenBracket arg TkCloseBracket
+Rule 39    bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs
+Rule 40    arg -> <empty>
+Rule 41    arg -> TkVar
+Rule 42    arg -> TkValue
+Rule 43    arg -> TkVar arg
+Rule 44    arg -> TkValue arg
+Rule 45    arg -> bracketArgs arg
+Rule 46    arg -> argBracketArg arg
+Rule 47    arg -> call arg TkCloseCall
+Rule 48    arg -> call arg TkCloseCall arg
+Rule 49    argBracketArg -> arg bracketArgs
+Rule 50    call -> TkOpenCall TkIdentifier
+Rule 51    call -> TkOpenCall ADD
+Rule 52    call -> TkOpenCall SUB
+Rule 53    call -> TkOpenCall MUL
+Rule 54    call -> TkOpenCall DIV
+Rule 55    call -> TkOpenCall REMOFDIV
+Rule 56    call -> TkOpenCall QU
+
+Terminals, with rules where they appear
+
+ADD                  : 51
+DIV                  : 54
+MUL                  : 53
+QU                   : 56
+REMOFDIV             : 55
+SUB                  : 52
+TkBool               : 20 21 31
+TkCloseBlock         : 6 16
+TkCloseBracket       : 38 39
+TkCloseCall          : 36 37 47 48
+TkColon              : 15
+TkComma              : 15
+TkDirective          : 4
+TkIdentifier         : 4 5 50
+TkOpenBlock          : 6 16
+TkOpenBracket        : 38 39
+TkOpenCall           : 50 51 52 53 54 55 56
+TkReplace            : 26 27
+TkSemicolon          : 7 8
+TkValue              : 19 25 30 33 42 44
+TkVar                : 18 22 29 32 41 43
+error                : 
+
+Nonterminals, with rules where they appear
+
+arg                  : 38 39 43 44 45 46 47 48 48 49
+argBracketArg        : 46
+body                 : 2 3
+bracketArgs          : 23 24 34 35 39 45 49
+call                 : 36 37 47 48
+condExpr             : 9 10
+condPattern          : 15
+condition            : 14
+declaration          : 2 3
+leftpart             : 11
+pattern              : 13 14 17 21 22 24 25
+result               : 15 27 32 33 35 36 37 37
+rightpart            : 10 11
+sentence             : 7 8
+sentences            : 6 8 16
+unit                 : 3 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . unit
+    (1) unit -> .
+    (2) unit -> . declaration body
+    (3) unit -> . declaration body unit
+    (4) declaration -> . TkDirective TkIdentifier
+    (5) declaration -> . TkIdentifier
+
+    $end            reduce using rule 1 (unit -> .)
+    TkDirective     shift and go to state 3
+    TkIdentifier    shift and go to state 4
+
+    unit                           shift and go to state 1
+    declaration                    shift and go to state 2
+
+state 1
+
+    (0) S' -> unit .
+
+
+
+state 2
+
+    (2) unit -> declaration . body
+    (3) unit -> declaration . body unit
+    (6) body -> . TkOpenBlock sentences TkCloseBlock
+
+    TkOpenBlock     shift and go to state 6
+
+    body                           shift and go to state 5
+
+state 3
+
+    (4) declaration -> TkDirective . TkIdentifier
+
+    TkIdentifier    shift and go to state 7
+
+
+state 4
+
+    (5) declaration -> TkIdentifier .
+
+    TkOpenBlock     reduce using rule 5 (declaration -> TkIdentifier .)
+
+
+state 5
+
+    (2) unit -> declaration body .
+    (3) unit -> declaration body . unit
+    (1) unit -> .
+    (2) unit -> . declaration body
+    (3) unit -> . declaration body unit
+    (4) declaration -> . TkDirective TkIdentifier
+    (5) declaration -> . TkIdentifier
+
+  ! reduce/reduce conflict for $end resolved using rule 1 (unit -> .)
+    $end            reduce using rule 1 (unit -> .)
+    TkDirective     shift and go to state 3
+    TkIdentifier    shift and go to state 4
+
+  ! $end            [ reduce using rule 2 (unit -> declaration body .) ]
+
+    declaration                    shift and go to state 2
+    unit                           shift and go to state 8
+
+state 6
+
+    (6) body -> TkOpenBlock . sentences TkCloseBlock
+    (7) sentences -> . sentence TkSemicolon
+    (8) sentences -> . sentence TkSemicolon sentences
+    (9) sentence -> . condExpr
+    (10) sentence -> . condExpr rightpart
+    (11) sentence -> . leftpart rightpart
+    (14) condExpr -> . pattern condition
+    (12) leftpart -> .
+    (13) leftpart -> . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkReplace       reduce using rule 12 (leftpart -> .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    sentences                      shift and go to state 9
+    sentence                       shift and go to state 10
+    condExpr                       shift and go to state 11
+    leftpart                       shift and go to state 12
+    pattern                        shift and go to state 13
+    bracketArgs                    shift and go to state 17
+
+state 7
+
+    (4) declaration -> TkDirective TkIdentifier .
+
+    TkOpenBlock     reduce using rule 4 (declaration -> TkDirective TkIdentifier .)
+
+
+state 8
+
+    (3) unit -> declaration body unit .
+
+    $end            reduce using rule 3 (unit -> declaration body unit .)
+
+
+state 9
+
+    (6) body -> TkOpenBlock sentences . TkCloseBlock
+
+    TkCloseBlock    shift and go to state 19
+
+
+state 10
+
+    (7) sentences -> sentence . TkSemicolon
+    (8) sentences -> sentence . TkSemicolon sentences
+
+    TkSemicolon     shift and go to state 20
+
+
+state 11
+
+    (9) sentence -> condExpr .
+    (10) sentence -> condExpr . rightpart
+    (26) rightpart -> . TkReplace
+    (27) rightpart -> . TkReplace result
+
+    TkSemicolon     reduce using rule 9 (sentence -> condExpr .)
+    TkReplace       shift and go to state 22
+
+    rightpart                      shift and go to state 21
+
+state 12
+
+    (11) sentence -> leftpart . rightpart
+    (26) rightpart -> . TkReplace
+    (27) rightpart -> . TkReplace result
+
+    TkReplace       shift and go to state 22
+
+    rightpart                      shift and go to state 23
+
+state 13
+
+    (14) condExpr -> pattern . condition
+    (13) leftpart -> pattern .
+    (15) condition -> . TkComma result TkColon condPattern
+
+    TkReplace       reduce using rule 13 (leftpart -> pattern .)
+    TkComma         shift and go to state 25
+
+    condition                      shift and go to state 24
+
+state 14
+
+    (18) pattern -> TkVar .
+    (22) pattern -> TkVar . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkComma         reduce using rule 18 (pattern -> TkVar .)
+    TkReplace       reduce using rule 18 (pattern -> TkVar .)
+    TkSemicolon     reduce using rule 18 (pattern -> TkVar .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    pattern                        shift and go to state 26
+    bracketArgs                    shift and go to state 17
+
+state 15
+
+    (19) pattern -> TkValue .
+    (25) pattern -> TkValue . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkComma         reduce using rule 19 (pattern -> TkValue .)
+    TkReplace       reduce using rule 19 (pattern -> TkValue .)
+    TkSemicolon     reduce using rule 19 (pattern -> TkValue .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    pattern                        shift and go to state 27
+    bracketArgs                    shift and go to state 17
+
+state 16
+
+    (20) pattern -> TkBool .
+    (21) pattern -> TkBool . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkComma         reduce using rule 20 (pattern -> TkBool .)
+    TkReplace       reduce using rule 20 (pattern -> TkBool .)
+    TkSemicolon     reduce using rule 20 (pattern -> TkBool .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    pattern                        shift and go to state 28
+    bracketArgs                    shift and go to state 17
+
+state 17
+
+    (23) pattern -> bracketArgs .
+    (24) pattern -> bracketArgs . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkComma         reduce using rule 23 (pattern -> bracketArgs .)
+    TkReplace       reduce using rule 23 (pattern -> bracketArgs .)
+    TkSemicolon     reduce using rule 23 (pattern -> bracketArgs .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    bracketArgs                    shift and go to state 17
+    pattern                        shift and go to state 29
+
+state 18
+
+    (38) bracketArgs -> TkOpenBracket . arg TkCloseBracket
+    (39) bracketArgs -> TkOpenBracket . arg TkCloseBracket bracketArgs
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    arg                            shift and go to state 30
+    bracketArgs                    shift and go to state 31
+    argBracketArg                  shift and go to state 34
+    call                           shift and go to state 35
+
+state 19
+
+    (6) body -> TkOpenBlock sentences TkCloseBlock .
+
+    TkDirective     reduce using rule 6 (body -> TkOpenBlock sentences TkCloseBlock .)
+    TkIdentifier    reduce using rule 6 (body -> TkOpenBlock sentences TkCloseBlock .)
+    $end            reduce using rule 6 (body -> TkOpenBlock sentences TkCloseBlock .)
+
+
+state 20
+
+    (7) sentences -> sentence TkSemicolon .
+    (8) sentences -> sentence TkSemicolon . sentences
+    (7) sentences -> . sentence TkSemicolon
+    (8) sentences -> . sentence TkSemicolon sentences
+    (9) sentence -> . condExpr
+    (10) sentence -> . condExpr rightpart
+    (11) sentence -> . leftpart rightpart
+    (14) condExpr -> . pattern condition
+    (12) leftpart -> .
+    (13) leftpart -> . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkCloseBlock    reduce using rule 7 (sentences -> sentence TkSemicolon .)
+    TkReplace       reduce using rule 12 (leftpart -> .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    sentence                       shift and go to state 10
+    sentences                      shift and go to state 37
+    condExpr                       shift and go to state 11
+    leftpart                       shift and go to state 12
+    pattern                        shift and go to state 13
+    bracketArgs                    shift and go to state 17
+
+state 21
+
+    (10) sentence -> condExpr rightpart .
+
+    TkSemicolon     reduce using rule 10 (sentence -> condExpr rightpart .)
+
+
+state 22
+
+    (26) rightpart -> TkReplace .
+    (27) rightpart -> TkReplace . result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkSemicolon resolved using rule 26 (rightpart -> TkReplace .)
+    TkSemicolon     reduce using rule 26 (rightpart -> TkReplace .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkSemicolon     [ reduce using rule 28 (result -> .) ]
+
+    result                         shift and go to state 38
+    bracketArgs                    shift and go to state 42
+    call                           shift and go to state 43
+
+state 23
+
+    (11) sentence -> leftpart rightpart .
+
+    TkSemicolon     reduce using rule 11 (sentence -> leftpart rightpart .)
+
+
+state 24
+
+    (14) condExpr -> pattern condition .
+
+    TkReplace       reduce using rule 14 (condExpr -> pattern condition .)
+    TkSemicolon     reduce using rule 14 (condExpr -> pattern condition .)
+
+
+state 25
+
+    (15) condition -> TkComma . result TkColon condPattern
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+    TkColon         reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+    result                         shift and go to state 44
+    bracketArgs                    shift and go to state 42
+    call                           shift and go to state 43
+
+state 26
+
+    (22) pattern -> TkVar pattern .
+
+    TkComma         reduce using rule 22 (pattern -> TkVar pattern .)
+    TkReplace       reduce using rule 22 (pattern -> TkVar pattern .)
+    TkSemicolon     reduce using rule 22 (pattern -> TkVar pattern .)
+
+
+state 27
+
+    (25) pattern -> TkValue pattern .
+
+    TkComma         reduce using rule 25 (pattern -> TkValue pattern .)
+    TkReplace       reduce using rule 25 (pattern -> TkValue pattern .)
+    TkSemicolon     reduce using rule 25 (pattern -> TkValue pattern .)
+
+
+state 28
+
+    (21) pattern -> TkBool pattern .
+
+    TkComma         reduce using rule 21 (pattern -> TkBool pattern .)
+    TkReplace       reduce using rule 21 (pattern -> TkBool pattern .)
+    TkSemicolon     reduce using rule 21 (pattern -> TkBool pattern .)
+
+
+state 29
+
+    (24) pattern -> bracketArgs pattern .
+
+    TkComma         reduce using rule 24 (pattern -> bracketArgs pattern .)
+    TkReplace       reduce using rule 24 (pattern -> bracketArgs pattern .)
+    TkSemicolon     reduce using rule 24 (pattern -> bracketArgs pattern .)
+
+
+state 30
+
+    (38) bracketArgs -> TkOpenBracket arg . TkCloseBracket
+    (39) bracketArgs -> TkOpenBracket arg . TkCloseBracket bracketArgs
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkCloseBracket  shift and go to state 45
+    TkOpenBracket   shift and go to state 18
+
+    bracketArgs                    shift and go to state 46
+
+state 31
+
+    (45) arg -> bracketArgs . arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    bracketArgs                    shift and go to state 31
+    arg                            shift and go to state 47
+    argBracketArg                  shift and go to state 34
+    call                           shift and go to state 35
+
+state 32
+
+    (41) arg -> TkVar .
+    (43) arg -> TkVar . arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkOpenBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 40 (arg -> .)
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkCloseBracket  [ reduce using rule 41 (arg -> TkVar .) ]
+  ! TkOpenBracket   [ reduce using rule 41 (arg -> TkVar .) ]
+  ! TkCloseCall     [ reduce using rule 41 (arg -> TkVar .) ]
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    arg                            shift and go to state 48
+    bracketArgs                    shift and go to state 31
+    argBracketArg                  shift and go to state 34
+    call                           shift and go to state 35
+
+state 33
+
+    (42) arg -> TkValue .
+    (44) arg -> TkValue . arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkOpenBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 40 (arg -> .)
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkCloseBracket  [ reduce using rule 42 (arg -> TkValue .) ]
+  ! TkOpenBracket   [ reduce using rule 42 (arg -> TkValue .) ]
+  ! TkCloseCall     [ reduce using rule 42 (arg -> TkValue .) ]
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    arg                            shift and go to state 49
+    bracketArgs                    shift and go to state 31
+    argBracketArg                  shift and go to state 34
+    call                           shift and go to state 35
+
+state 34
+
+    (46) arg -> argBracketArg . arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    argBracketArg                  shift and go to state 34
+    arg                            shift and go to state 50
+    bracketArgs                    shift and go to state 31
+    call                           shift and go to state 35
+
+state 35
+
+    (47) arg -> call . arg TkCloseCall
+    (48) arg -> call . arg TkCloseCall arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    call                           shift and go to state 35
+    arg                            shift and go to state 51
+    bracketArgs                    shift and go to state 31
+    argBracketArg                  shift and go to state 34
+
+state 36
+
+    (50) call -> TkOpenCall . TkIdentifier
+    (51) call -> TkOpenCall . ADD
+    (52) call -> TkOpenCall . SUB
+    (53) call -> TkOpenCall . MUL
+    (54) call -> TkOpenCall . DIV
+    (55) call -> TkOpenCall . REMOFDIV
+    (56) call -> TkOpenCall . QU
+
+    TkIdentifier    shift and go to state 52
+    ADD             shift and go to state 53
+    SUB             shift and go to state 54
+    MUL             shift and go to state 55
+    DIV             shift and go to state 56
+    REMOFDIV        shift and go to state 57
+    QU              shift and go to state 58
+
+
+state 37
+
+    (8) sentences -> sentence TkSemicolon sentences .
+
+    TkCloseBlock    reduce using rule 8 (sentences -> sentence TkSemicolon sentences .)
+
+
+state 38
+
+    (27) rightpart -> TkReplace result .
+
+    TkSemicolon     reduce using rule 27 (rightpart -> TkReplace result .)
+
+
+state 39
+
+    (29) result -> TkVar .
+    (32) result -> TkVar . result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkSemicolon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkColon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 28 (result -> .)
+    TkSemicolon     reduce using rule 28 (result -> .)
+    TkColon         reduce using rule 28 (result -> .)
+    TkCloseCall     reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkSemicolon     [ reduce using rule 29 (result -> TkVar .) ]
+  ! TkColon         [ reduce using rule 29 (result -> TkVar .) ]
+  ! TkCloseCall     [ reduce using rule 29 (result -> TkVar .) ]
+
+    result                         shift and go to state 59
+    bracketArgs                    shift and go to state 42
+    call                           shift and go to state 43
+
+state 40
+
+    (30) result -> TkValue .
+    (33) result -> TkValue . result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkSemicolon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkColon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 28 (result -> .)
+    TkSemicolon     reduce using rule 28 (result -> .)
+    TkColon         reduce using rule 28 (result -> .)
+    TkCloseCall     reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkSemicolon     [ reduce using rule 30 (result -> TkValue .) ]
+  ! TkColon         [ reduce using rule 30 (result -> TkValue .) ]
+  ! TkCloseCall     [ reduce using rule 30 (result -> TkValue .) ]
+
+    result                         shift and go to state 60
+    bracketArgs                    shift and go to state 42
+    call                           shift and go to state 43
+
+state 41
+
+    (31) result -> TkBool .
+
+    TkSemicolon     reduce using rule 31 (result -> TkBool .)
+    TkColon         reduce using rule 31 (result -> TkBool .)
+    TkCloseCall     reduce using rule 31 (result -> TkBool .)
+
+
+state 42
+
+    (34) result -> bracketArgs .
+    (35) result -> bracketArgs . result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkSemicolon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkColon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 28 (result -> .)
+    TkSemicolon     reduce using rule 28 (result -> .)
+    TkColon         reduce using rule 28 (result -> .)
+    TkCloseCall     reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkSemicolon     [ reduce using rule 34 (result -> bracketArgs .) ]
+  ! TkColon         [ reduce using rule 34 (result -> bracketArgs .) ]
+  ! TkCloseCall     [ reduce using rule 34 (result -> bracketArgs .) ]
+
+    bracketArgs                    shift and go to state 42
+    result                         shift and go to state 61
+    call                           shift and go to state 43
+
+state 43
+
+    (36) result -> call . result TkCloseCall
+    (37) result -> call . result TkCloseCall result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+    TkCloseCall     reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+    call                           shift and go to state 43
+    result                         shift and go to state 62
+    bracketArgs                    shift and go to state 42
+
+state 44
+
+    (15) condition -> TkComma result . TkColon condPattern
+
+    TkColon         shift and go to state 63
+
+
+state 45
+
+    (38) bracketArgs -> TkOpenBracket arg TkCloseBracket .
+    (39) bracketArgs -> TkOpenBracket arg TkCloseBracket . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkVar           reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkValue         reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkBool          reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkComma         reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkReplace       reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkSemicolon     reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkOpenCall      reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkCloseBracket  reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkColon         reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkCloseCall     reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 38 (bracketArgs -> TkOpenBracket arg TkCloseBracket .) ]
+
+    bracketArgs                    shift and go to state 64
+
+state 46
+
+    (49) argBracketArg -> arg bracketArgs .
+
+    TkVar           reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+    TkValue         reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+    TkOpenBracket   reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+    TkOpenCall      reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+    TkCloseBracket  reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+    TkCloseCall     reduce using rule 49 (argBracketArg -> arg bracketArgs .)
+
+
+state 47
+
+    (45) arg -> bracketArgs arg .
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 45 (arg -> bracketArgs arg .)
+    TkCloseCall     reduce using rule 45 (arg -> bracketArgs arg .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 45 (arg -> bracketArgs arg .) ]
+
+    bracketArgs                    shift and go to state 46
+
+state 48
+
+    (43) arg -> TkVar arg .
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 43 (arg -> TkVar arg .)
+    TkCloseCall     reduce using rule 43 (arg -> TkVar arg .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 43 (arg -> TkVar arg .) ]
+
+    bracketArgs                    shift and go to state 46
+
+state 49
+
+    (44) arg -> TkValue arg .
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 44 (arg -> TkValue arg .)
+    TkCloseCall     reduce using rule 44 (arg -> TkValue arg .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 44 (arg -> TkValue arg .) ]
+
+    bracketArgs                    shift and go to state 46
+
+state 50
+
+    (46) arg -> argBracketArg arg .
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 46 (arg -> argBracketArg arg .)
+    TkCloseCall     reduce using rule 46 (arg -> argBracketArg arg .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 46 (arg -> argBracketArg arg .) ]
+
+    bracketArgs                    shift and go to state 46
+
+state 51
+
+    (47) arg -> call arg . TkCloseCall
+    (48) arg -> call arg . TkCloseCall arg
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkCloseCall     shift and go to state 65
+    TkOpenBracket   shift and go to state 18
+
+    bracketArgs                    shift and go to state 46
+
+state 52
+
+    (50) call -> TkOpenCall TkIdentifier .
+
+    TkVar           reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+    TkValue         reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+    TkOpenBracket   reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+    TkOpenCall      reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+    TkCloseCall     reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+    TkBool          reduce using rule 50 (call -> TkOpenCall TkIdentifier .)
+
+
+state 53
+
+    (51) call -> TkOpenCall ADD .
+
+    TkVar           reduce using rule 51 (call -> TkOpenCall ADD .)
+    TkValue         reduce using rule 51 (call -> TkOpenCall ADD .)
+    TkOpenBracket   reduce using rule 51 (call -> TkOpenCall ADD .)
+    TkOpenCall      reduce using rule 51 (call -> TkOpenCall ADD .)
+    TkCloseCall     reduce using rule 51 (call -> TkOpenCall ADD .)
+    TkBool          reduce using rule 51 (call -> TkOpenCall ADD .)
+
+
+state 54
+
+    (52) call -> TkOpenCall SUB .
+
+    TkVar           reduce using rule 52 (call -> TkOpenCall SUB .)
+    TkValue         reduce using rule 52 (call -> TkOpenCall SUB .)
+    TkOpenBracket   reduce using rule 52 (call -> TkOpenCall SUB .)
+    TkOpenCall      reduce using rule 52 (call -> TkOpenCall SUB .)
+    TkCloseCall     reduce using rule 52 (call -> TkOpenCall SUB .)
+    TkBool          reduce using rule 52 (call -> TkOpenCall SUB .)
+
+
+state 55
+
+    (53) call -> TkOpenCall MUL .
+
+    TkVar           reduce using rule 53 (call -> TkOpenCall MUL .)
+    TkValue         reduce using rule 53 (call -> TkOpenCall MUL .)
+    TkOpenBracket   reduce using rule 53 (call -> TkOpenCall MUL .)
+    TkOpenCall      reduce using rule 53 (call -> TkOpenCall MUL .)
+    TkCloseCall     reduce using rule 53 (call -> TkOpenCall MUL .)
+    TkBool          reduce using rule 53 (call -> TkOpenCall MUL .)
+
+
+state 56
+
+    (54) call -> TkOpenCall DIV .
+
+    TkVar           reduce using rule 54 (call -> TkOpenCall DIV .)
+    TkValue         reduce using rule 54 (call -> TkOpenCall DIV .)
+    TkOpenBracket   reduce using rule 54 (call -> TkOpenCall DIV .)
+    TkOpenCall      reduce using rule 54 (call -> TkOpenCall DIV .)
+    TkCloseCall     reduce using rule 54 (call -> TkOpenCall DIV .)
+    TkBool          reduce using rule 54 (call -> TkOpenCall DIV .)
+
+
+state 57
+
+    (55) call -> TkOpenCall REMOFDIV .
+
+    TkVar           reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+    TkValue         reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+    TkOpenBracket   reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+    TkOpenCall      reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+    TkCloseCall     reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+    TkBool          reduce using rule 55 (call -> TkOpenCall REMOFDIV .)
+
+
+state 58
+
+    (56) call -> TkOpenCall QU .
+
+    TkVar           reduce using rule 56 (call -> TkOpenCall QU .)
+    TkValue         reduce using rule 56 (call -> TkOpenCall QU .)
+    TkOpenBracket   reduce using rule 56 (call -> TkOpenCall QU .)
+    TkOpenCall      reduce using rule 56 (call -> TkOpenCall QU .)
+    TkCloseCall     reduce using rule 56 (call -> TkOpenCall QU .)
+    TkBool          reduce using rule 56 (call -> TkOpenCall QU .)
+
+
+state 59
+
+    (32) result -> TkVar result .
+
+    TkSemicolon     reduce using rule 32 (result -> TkVar result .)
+    TkColon         reduce using rule 32 (result -> TkVar result .)
+    TkCloseCall     reduce using rule 32 (result -> TkVar result .)
+
+
+state 60
+
+    (33) result -> TkValue result .
+
+    TkSemicolon     reduce using rule 33 (result -> TkValue result .)
+    TkColon         reduce using rule 33 (result -> TkValue result .)
+    TkCloseCall     reduce using rule 33 (result -> TkValue result .)
+
+
+state 61
+
+    (35) result -> bracketArgs result .
+
+    TkSemicolon     reduce using rule 35 (result -> bracketArgs result .)
+    TkColon         reduce using rule 35 (result -> bracketArgs result .)
+    TkCloseCall     reduce using rule 35 (result -> bracketArgs result .)
+
+
+state 62
+
+    (36) result -> call result . TkCloseCall
+    (37) result -> call result . TkCloseCall result
+
+    TkCloseCall     shift and go to state 66
+
+
+state 63
+
+    (15) condition -> TkComma result TkColon . condPattern
+    (16) condPattern -> . TkOpenBlock sentences TkCloseBlock
+    (17) condPattern -> . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkOpenBlock     shift and go to state 68
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    condPattern                    shift and go to state 67
+    pattern                        shift and go to state 69
+    bracketArgs                    shift and go to state 17
+
+state 64
+
+    (39) bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .
+
+    TkVar           reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkValue         reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkBool          reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkOpenBracket   reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkComma         reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkReplace       reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkSemicolon     reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkOpenCall      reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkCloseBracket  reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkColon         reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+    TkCloseCall     reduce using rule 39 (bracketArgs -> TkOpenBracket arg TkCloseBracket bracketArgs .)
+
+
+state 65
+
+    (47) arg -> call arg TkCloseCall .
+    (48) arg -> call arg TkCloseCall . arg
+    (40) arg -> .
+    (41) arg -> . TkVar
+    (42) arg -> . TkValue
+    (43) arg -> . TkVar arg
+    (44) arg -> . TkValue arg
+    (45) arg -> . bracketArgs arg
+    (46) arg -> . argBracketArg arg
+    (47) arg -> . call arg TkCloseCall
+    (48) arg -> . call arg TkCloseCall arg
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (49) argBracketArg -> . arg bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkOpenBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseBracket resolved using rule 40 (arg -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 40 (arg -> .)
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 40 (arg -> .)
+    TkCloseCall     reduce using rule 40 (arg -> .)
+    TkVar           shift and go to state 32
+    TkValue         shift and go to state 33
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkCloseBracket  [ reduce using rule 47 (arg -> call arg TkCloseCall .) ]
+  ! TkOpenBracket   [ reduce using rule 47 (arg -> call arg TkCloseCall .) ]
+  ! TkCloseCall     [ reduce using rule 47 (arg -> call arg TkCloseCall .) ]
+  ! TkOpenBracket   [ reduce using rule 40 (arg -> .) ]
+
+    call                           shift and go to state 35
+    arg                            shift and go to state 70
+    bracketArgs                    shift and go to state 31
+    argBracketArg                  shift and go to state 34
+
+state 66
+
+    (36) result -> call result TkCloseCall .
+    (37) result -> call result TkCloseCall . result
+    (28) result -> .
+    (29) result -> . TkVar
+    (30) result -> . TkValue
+    (31) result -> . TkBool
+    (32) result -> . TkVar result
+    (33) result -> . TkValue result
+    (34) result -> . bracketArgs
+    (35) result -> . bracketArgs result
+    (36) result -> . call result TkCloseCall
+    (37) result -> . call result TkCloseCall result
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+    (50) call -> . TkOpenCall TkIdentifier
+    (51) call -> . TkOpenCall ADD
+    (52) call -> . TkOpenCall SUB
+    (53) call -> . TkOpenCall MUL
+    (54) call -> . TkOpenCall DIV
+    (55) call -> . TkOpenCall REMOFDIV
+    (56) call -> . TkOpenCall QU
+
+  ! reduce/reduce conflict for TkSemicolon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkColon resolved using rule 28 (result -> .)
+  ! reduce/reduce conflict for TkCloseCall resolved using rule 28 (result -> .)
+    TkSemicolon     reduce using rule 28 (result -> .)
+    TkColon         reduce using rule 28 (result -> .)
+    TkCloseCall     reduce using rule 28 (result -> .)
+    TkVar           shift and go to state 39
+    TkValue         shift and go to state 40
+    TkBool          shift and go to state 41
+    TkOpenBracket   shift and go to state 18
+    TkOpenCall      shift and go to state 36
+
+  ! TkSemicolon     [ reduce using rule 36 (result -> call result TkCloseCall .) ]
+  ! TkColon         [ reduce using rule 36 (result -> call result TkCloseCall .) ]
+  ! TkCloseCall     [ reduce using rule 36 (result -> call result TkCloseCall .) ]
+
+    call                           shift and go to state 43
+    result                         shift and go to state 71
+    bracketArgs                    shift and go to state 42
+
+state 67
+
+    (15) condition -> TkComma result TkColon condPattern .
+
+    TkReplace       reduce using rule 15 (condition -> TkComma result TkColon condPattern .)
+    TkSemicolon     reduce using rule 15 (condition -> TkComma result TkColon condPattern .)
+
+
+state 68
+
+    (16) condPattern -> TkOpenBlock . sentences TkCloseBlock
+    (7) sentences -> . sentence TkSemicolon
+    (8) sentences -> . sentence TkSemicolon sentences
+    (9) sentence -> . condExpr
+    (10) sentence -> . condExpr rightpart
+    (11) sentence -> . leftpart rightpart
+    (14) condExpr -> . pattern condition
+    (12) leftpart -> .
+    (13) leftpart -> . pattern
+    (18) pattern -> . TkVar
+    (19) pattern -> . TkValue
+    (20) pattern -> . TkBool
+    (21) pattern -> . TkBool pattern
+    (22) pattern -> . TkVar pattern
+    (23) pattern -> . bracketArgs
+    (24) pattern -> . bracketArgs pattern
+    (25) pattern -> . TkValue pattern
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+    TkReplace       reduce using rule 12 (leftpart -> .)
+    TkVar           shift and go to state 14
+    TkValue         shift and go to state 15
+    TkBool          shift and go to state 16
+    TkOpenBracket   shift and go to state 18
+
+    sentences                      shift and go to state 72
+    sentence                       shift and go to state 10
+    condExpr                       shift and go to state 11
+    leftpart                       shift and go to state 12
+    pattern                        shift and go to state 13
+    bracketArgs                    shift and go to state 17
+
+state 69
+
+    (17) condPattern -> pattern .
+
+    TkReplace       reduce using rule 17 (condPattern -> pattern .)
+    TkSemicolon     reduce using rule 17 (condPattern -> pattern .)
+
+
+state 70
+
+    (48) arg -> call arg TkCloseCall arg .
+    (49) argBracketArg -> arg . bracketArgs
+    (38) bracketArgs -> . TkOpenBracket arg TkCloseBracket
+    (39) bracketArgs -> . TkOpenBracket arg TkCloseBracket bracketArgs
+
+  ! shift/reduce conflict for TkOpenBracket resolved as shift
+    TkCloseBracket  reduce using rule 48 (arg -> call arg TkCloseCall arg .)
+    TkCloseCall     reduce using rule 48 (arg -> call arg TkCloseCall arg .)
+    TkOpenBracket   shift and go to state 18
+
+  ! TkOpenBracket   [ reduce using rule 48 (arg -> call arg TkCloseCall arg .) ]
+
+    bracketArgs                    shift and go to state 46
+
+state 71
+
+    (37) result -> call result TkCloseCall result .
+
+    TkSemicolon     reduce using rule 37 (result -> call result TkCloseCall result .)
+    TkColon         reduce using rule 37 (result -> call result TkCloseCall result .)
+    TkCloseCall     reduce using rule 37 (result -> call result TkCloseCall result .)
+
+
+state 72
+
+    (16) condPattern -> TkOpenBlock sentences . TkCloseBlock
+
+    TkCloseBlock    shift and go to state 73
+
+
+state 73
+
+    (16) condPattern -> TkOpenBlock sentences TkCloseBlock .
+
+    TkReplace       reduce using rule 16 (condPattern -> TkOpenBlock sentences TkCloseBlock .)
+    TkSemicolon     reduce using rule 16 (condPattern -> TkOpenBlock sentences TkCloseBlock .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for TkOpenBracket in state 18 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 31 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 32 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 33 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 34 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 35 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 45 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 47 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 48 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 49 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 50 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 65 resolved as shift
+WARNING: shift/reduce conflict for TkOpenBracket in state 70 resolved as shift
+WARNING: reduce/reduce conflict in state 5 resolved using rule (unit -> <empty>)
+WARNING: rejected rule (unit -> declaration body) in state 5
+WARNING: reduce/reduce conflict in state 22 resolved using rule (rightpart -> TkReplace)
+WARNING: rejected rule (result -> <empty>) in state 22
+WARNING: reduce/reduce conflict in state 32 resolved using rule (arg -> <empty>)
+WARNING: rejected rule (arg -> TkVar) in state 32
+WARNING: reduce/reduce conflict in state 33 resolved using rule (arg -> <empty>)
+WARNING: rejected rule (arg -> TkValue) in state 33
+WARNING: reduce/reduce conflict in state 39 resolved using rule (result -> <empty>)
+WARNING: rejected rule (result -> TkVar) in state 39
+WARNING: reduce/reduce conflict in state 40 resolved using rule (result -> <empty>)
+WARNING: rejected rule (result -> TkValue) in state 40
+WARNING: reduce/reduce conflict in state 42 resolved using rule (result -> <empty>)
+WARNING: rejected rule (result -> bracketArgs) in state 42
+WARNING: reduce/reduce conflict in state 65 resolved using rule (arg -> <empty>)
+WARNING: rejected rule (arg -> call arg TkCloseCall) in state 65
+WARNING: reduce/reduce conflict in state 66 resolved using rule (result -> <empty>)
+WARNING: rejected rule (result -> call result TkCloseCall) in state 66
+WARNING: Rule (unit -> declaration body) is never reduced
+WARNING: Rule (arg -> TkVar) is never reduced
+WARNING: Rule (arg -> TkValue) is never reduced
+WARNING: Rule (result -> TkVar) is never reduced
+WARNING: Rule (result -> TkValue) is never reduced
+WARNING: Rule (result -> bracketArgs) is never reduced
+WARNING: Rule (arg -> call arg TkCloseCall) is never reduced
+WARNING: Rule (result -> call result TkCloseCall) is never reduced

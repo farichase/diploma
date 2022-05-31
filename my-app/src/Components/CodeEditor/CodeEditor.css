@@ -1,0 +1,47 @@
+.CodeEditorClass {
+	margin-top:0px;
+	height: 820px;
+	width: 50%;
+	margin-left: 0px;
+	display: flex;
+  flex-direction: row;
+  resize: none;
+  overflow:hidden;
+  cursor: text;
+  outline: none;
+  border: none;	
+  resize: horizontal
+}
+.Suggest{
+  width: 100%;
+  background: rgba(79, 107, 125, 0.3);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px;
+}
+
+.text {
+  width: 100%;
+}
+.CodeEditor {
+	margin-top:0px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+  flex-direction: Row;
+  appearance: auto;
+  cursor: text;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  border:none;	
+  font-size: 15px; 
+  
+}
+.CodeEditor::-webkit-scrollbar {
+  width: 0;
+}
+
+.container {
+  overflow-y: auto;
+}

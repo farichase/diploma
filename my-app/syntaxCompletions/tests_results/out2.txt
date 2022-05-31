@@ -1,0 +1,51 @@
+unit:
+	declaration:
+		Chpm
+	body:
+		sentences:
+			sentence:
+				leftpart:
+					
+				rightpart:
+					
+			sentence:
+				leftpart:
+					pattern:
+						e.1
+						s.2
+				rightpart:
+					result:
+						call:
+							Chpm
+						result:
+							e.1
+						s.2
+			sentence:
+				leftpart:
+					pattern:
+						e.1
+						+
+				rightpart:
+					result:
+						call:
+							Chpm
+						result:
+							e.1
+						-
+	declaration:
+		$ENTRY
+		Go
+	body:
+		sentences:
+			sentence:
+				leftpart:
+					
+				rightpart:
+					result:
+						call:
+							Prout
+						result:
+							call:
+								Chpm
+							result:
+								ab+c-+d

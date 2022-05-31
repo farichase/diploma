@@ -1,0 +1,12 @@
+$ENTRY Go {
+   e.p = <Check <ReplaceIp e.p>>;
+}
+ReplaceIp {
+    e.x1 'ip' e.x2 = e.x1' ip address '<ReplaceIp e.x2>;
+    e.Other = e.Other;
+}
+Check {
+    = 'T';
+    '<script'e.x = 'F';
+    t.y e.Z = <Check e.Z>;
+}

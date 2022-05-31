@@ -1,0 +1,9 @@
+.App-header {
+  display: flex;
+  flex-direction: Column;  
+}
+.bar{
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+}

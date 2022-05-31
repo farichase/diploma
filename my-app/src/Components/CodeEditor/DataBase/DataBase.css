@@ -1,0 +1,52 @@
+.database{
+  width: 150px;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  border:none;	
+  font-size: 15px; 
+  display: flex;
+  flex-direction: row;
+}
+
+.block {
+	margin-top:0px;
+  pointer-events: auto;
+	margin-left:0px;
+  /* background: rgba(79, 107, 125, 0.3);  */
+}
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.openButton{
+  box-sizing: border-box;
+  padding:7px 20px;
+  border:0px solid rgba(79, 107, 125, 0.6);
+  color:rgba(79, 107, 125, 0.6);
+  font-size:15px;
+  text-decoration:none;
+  transition: color 0.4s;
+  background-color: white;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+}
+.btn {
+    width: 100%;
+    box-sizing: border-box;
+  padding: 7px 20px;
+  border:0px solid rgba(79, 107, 125, 0.6);
+  color:rgba(79, 107, 125, 0.6);
+  font-size:15px;
+  text-decoration:none;
+  transition: color 0.4s;
+  background-color: white;
+  cursor: pointer;
+}
+.btn:hover{
+    background-color: rgba(79, 107, 125, 0.151);
+}

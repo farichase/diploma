@@ -1,0 +1,407 @@
+INFO:root:PLY: PARSE DEBUG START
+DEBUG:root:
+DEBUG:root:State  : 0
+DEBUG:root:Stack  : . LexToken(TkDirective,'$ENTRY',1,0)
+DEBUG:root:Action : Shift and goto state 3
+DEBUG:root:
+DEBUG:root:State  : 3
+DEBUG:root:Stack  : TkDirective . LexToken(TkIdentifier,'Go',1,7)
+DEBUG:root:Action : Shift and goto state 7
+DEBUG:root:
+DEBUG:root:State  : 7
+DEBUG:root:Defaulted state 7: Reduce using 4
+DEBUG:root:Stack  : TkDirective TkIdentifier . None
+INFO:root:Action : Reduce rule [declaration -> TkDirective TkIdentifier] with ['$ENTRY','Go'] and goto state 2
+INFO:root:Result : <Node @ 0x7feaa3d93700> ('declaration:\n\t$ENTRY\n\tGo')
+DEBUG:root:
+DEBUG:root:State  : 2
+DEBUG:root:Stack  : declaration . LexToken(TkOpenBlock,'{',1,10)
+DEBUG:root:Action : Shift and goto state 6
+DEBUG:root:
+DEBUG:root:State  : 6
+DEBUG:root:Stack  : declaration TkOpenBlock . LexToken(TkReplace,'=',1,12)
+INFO:root:Action : Reduce rule [leftpart -> <empty>] with [] and goto state 12
+INFO:root:Result : <Node @ 0x7feaa400ab80> ('leftpart:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 12
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart . LexToken(TkReplace,'=',1,12)
+DEBUG:root:Action : Shift and goto state 22
+DEBUG:root:
+DEBUG:root:State  : 22
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace . LexToken(TkOpenCall,'<',1,14)
+DEBUG:root:Action : Shift and goto state 36
+DEBUG:root:
+DEBUG:root:State  : 36
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace TkOpenCall . LexToken(TkIdentifier,'Prout',1,15)
+DEBUG:root:Action : Shift and goto state 52
+DEBUG:root:
+DEBUG:root:State  : 52
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace TkOpenCall TkIdentifier . LexToken(TkOpenCall,'<',1,21)
+INFO:root:Action : Reduce rule [call -> TkOpenCall TkIdentifier] with ['<','Prout'] and goto state 43
+INFO:root:Result : <Node @ 0x7feaa3d93f10> ('call:\n\tProut')
+DEBUG:root:
+DEBUG:root:State  : 43
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call . LexToken(TkOpenCall,'<',1,21)
+DEBUG:root:Action : Shift and goto state 36
+DEBUG:root:
+DEBUG:root:State  : 36
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call TkOpenCall . LexToken(TkIdentifier,'Pal',1,22)
+DEBUG:root:Action : Shift and goto state 52
+DEBUG:root:
+DEBUG:root:State  : 52
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call TkOpenCall TkIdentifier . LexToken(TkValue,'revolver',1,27)
+INFO:root:Action : Reduce rule [call -> TkOpenCall TkIdentifier] with ['<','Pal'] and goto state 43
+INFO:root:Result : <Node @ 0x7feaa3d936a0> ('call:\n\tPal')
+DEBUG:root:
+DEBUG:root:State  : 43
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call . LexToken(TkValue,'revolver',1,27)
+DEBUG:root:Action : Shift and goto state 40
+DEBUG:root:
+DEBUG:root:State  : 40
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call TkValue . LexToken(TkCloseCall,'>',1,36)
+INFO:root:Action : Reduce rule [result -> <empty>] with [] and goto state 60
+INFO:root:Result : <Node @ 0x7feaa3d93e80> ('result:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 60
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call TkValue result . LexToken(TkCloseCall,'>',1,36)
+INFO:root:Action : Reduce rule [result -> TkValue result] with ['revolver','result:\n\t'] and goto state 62
+INFO:root:Result : <Node @ 0x7feaa3d93e80> ('result:\n\trevolver')
+DEBUG:root:
+DEBUG:root:State  : 62
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call result . LexToken(TkCloseCall,'>',1,36)
+DEBUG:root:Action : Shift and goto state 66
+DEBUG:root:
+DEBUG:root:State  : 66
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call result TkCloseCall . LexToken(TkCloseCall,'>',1,37)
+INFO:root:Action : Reduce rule [result -> <empty>] with [] and goto state 71
+INFO:root:Result : <Node @ 0x7feaa3d93e20> ('result:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 71
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call call result TkCloseCall result . LexToken(TkCloseCall,'>',1,37)
+INFO:root:Action : Reduce rule [result -> call result TkCloseCall result] with ['call:\n\tPal',<Node @ 0x7feaa3d93e80>,'>','result:\n\t'] and goto state 62
+INFO:root:Result : <Node @ 0x7feaa3d93e20> ('result:\n\tcall:\n\t\tPal\n\tresult:\n\ ...)
+DEBUG:root:
+DEBUG:root:State  : 62
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call result . LexToken(TkCloseCall,'>',1,37)
+DEBUG:root:Action : Shift and goto state 66
+DEBUG:root:
+DEBUG:root:State  : 66
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call result TkCloseCall . LexToken(TkSemicolon,';',1,38)
+INFO:root:Action : Reduce rule [result -> <empty>] with [] and goto state 71
+INFO:root:Result : <Node @ 0x7feaa3d93f70> ('result:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 71
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace call result TkCloseCall result . LexToken(TkSemicolon,';',1,38)
+INFO:root:Action : Reduce rule [result -> call result TkCloseCall result] with [<Node @ 0x7feaa3d93f10>,<Node @ 0x7feaa3d93e20>,'>','result:\n\t'] and goto state 38
+INFO:root:Result : <Node @ 0x7feaa3d93f70> ('result:\n\tcall:\n\t\tProut\n\tresult:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 38
+DEBUG:root:Defaulted state 38: Reduce using 27
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart TkReplace result . LexToken(TkSemicolon,';',1,38)
+INFO:root:Action : Reduce rule [rightpart -> TkReplace result] with ['=',<Node @ 0x7feaa3d93f70>] and goto state 23
+INFO:root:Result : <Node @ 0x7feaa3d93100> ('rightpart:\n\tresult:\n\t\tcall:\n\t\t\ ...)
+DEBUG:root:
+DEBUG:root:State  : 23
+DEBUG:root:Defaulted state 23: Reduce using 11
+DEBUG:root:Stack  : declaration TkOpenBlock leftpart rightpart . LexToken(TkSemicolon,';',1,38)
+INFO:root:Action : Reduce rule [sentence -> leftpart rightpart] with ['leftpart:\n\t',<Node @ 0x7feaa3d93100>] and goto state 10
+INFO:root:Result : <Node @ 0x7feaa3d938b0> ('sentence:\n\tleftpart:\n\t\t\n\trightpa ...)
+DEBUG:root:
+DEBUG:root:State  : 10
+DEBUG:root:Stack  : declaration TkOpenBlock sentence . LexToken(TkSemicolon,';',1,38)
+DEBUG:root:Action : Shift and goto state 20
+DEBUG:root:
+DEBUG:root:State  : 20
+DEBUG:root:Stack  : declaration TkOpenBlock sentence TkSemicolon . LexToken(TkCloseBlock,'}',1,40)
+INFO:root:Action : Reduce rule [sentences -> sentence TkSemicolon] with [<Node @ 0x7feaa3d938b0>,';'] and goto state 9
+INFO:root:Result : <Node @ 0x7feaa3d93760> ('sentences:\n\tsentence:\n\t\tleftpart:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 9
+DEBUG:root:Stack  : declaration TkOpenBlock sentences . LexToken(TkCloseBlock,'}',1,40)
+DEBUG:root:Action : Shift and goto state 19
+DEBUG:root:
+DEBUG:root:State  : 19
+DEBUG:root:Stack  : declaration TkOpenBlock sentences TkCloseBlock . LexToken(TkIdentifier,'Pal',3,43)
+INFO:root:Action : Reduce rule [body -> TkOpenBlock sentences TkCloseBlock] with ['{',<Node @ 0x7feaa3d93760>,'}'] and goto state 5
+INFO:root:Result : <Node @ 0x7feaa3da0040> ('body:\n\tsentences:\n\t\tsentence:\n\t\ ...)
+DEBUG:root:
+DEBUG:root:State  : 5
+DEBUG:root:Stack  : declaration body . LexToken(TkIdentifier,'Pal',3,43)
+DEBUG:root:Action : Shift and goto state 4
+DEBUG:root:
+DEBUG:root:State  : 4
+DEBUG:root:Defaulted state 4: Reduce using 5
+DEBUG:root:Stack  : declaration body TkIdentifier . None
+INFO:root:Action : Reduce rule [declaration -> TkIdentifier] with ['Pal'] and goto state 2
+INFO:root:Result : <Node @ 0x7feaa3d937c0> ('declaration:\n\tPal')
+DEBUG:root:
+DEBUG:root:State  : 2
+DEBUG:root:Stack  : declaration body declaration . LexToken(TkOpenBlock,'{',3,47)
+DEBUG:root:Action : Shift and goto state 6
+DEBUG:root:
+DEBUG:root:State  : 6
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock . LexToken(TkReplace,'=',3,49)
+INFO:root:Action : Reduce rule [leftpart -> <empty>] with [] and goto state 12
+INFO:root:Result : <Node @ 0x7feaa3da0250> ('leftpart:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 12
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock leftpart . LexToken(TkReplace,'=',3,49)
+DEBUG:root:Action : Shift and goto state 22
+DEBUG:root:
+DEBUG:root:State  : 22
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock leftpart TkReplace . LexToken(TkBool,'True',3,51)
+DEBUG:root:Action : Shift and goto state 41
+DEBUG:root:
+DEBUG:root:State  : 41
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock leftpart TkReplace TkBool . LexToken(TkSemicolon,';',3,55)
+INFO:root:Action : Reduce rule [result -> TkBool] with ['True'] and goto state 38
+INFO:root:Result : <Node @ 0x7feaa3da0490> ('result:\n\tTrue')
+DEBUG:root:
+DEBUG:root:State  : 38
+DEBUG:root:Defaulted state 38: Reduce using 27
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock leftpart TkReplace result . LexToken(TkSemicolon,';',3,55)
+INFO:root:Action : Reduce rule [rightpart -> TkReplace result] with ['=',<Node @ 0x7feaa3da0490>] and goto state 23
+INFO:root:Result : <Node @ 0x7feaa3da01f0> ('rightpart:\n\tresult:\n\t\tTrue')
+DEBUG:root:
+DEBUG:root:State  : 23
+DEBUG:root:Defaulted state 23: Reduce using 11
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock leftpart rightpart . LexToken(TkSemicolon,';',3,55)
+INFO:root:Action : Reduce rule [sentence -> leftpart rightpart] with ['leftpart:\n\t',<Node @ 0x7feaa3da01f0>] and goto state 10
+INFO:root:Result : <Node @ 0x7feaa3da00d0> ('sentence:\n\tleftpart:\n\t\t\n\trightpa ...)
+DEBUG:root:
+DEBUG:root:State  : 10
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence . LexToken(TkSemicolon,';',3,55)
+DEBUG:root:Action : Shift and goto state 20
+DEBUG:root:
+DEBUG:root:State  : 20
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon . LexToken(TkVar,'s.1',4,62)
+DEBUG:root:Action : Shift and goto state 14
+DEBUG:root:
+DEBUG:root:State  : 14
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon TkVar . LexToken(TkReplace,'=',4,66)
+INFO:root:Action : Reduce rule [pattern -> TkVar] with ['s.1'] and goto state 13
+INFO:root:Result : <Node @ 0x7feaa3d93fd0> ('pattern:\n\ts.1')
+DEBUG:root:
+DEBUG:root:State  : 13
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon pattern . LexToken(TkReplace,'=',4,66)
+INFO:root:Action : Reduce rule [leftpart -> pattern] with [<Node @ 0x7feaa3d93fd0>] and goto state 12
+INFO:root:Result : <Node @ 0x7feaa3da05e0> ('leftpart:\n\tpattern:\n\t\ts.1')
+DEBUG:root:
+DEBUG:root:State  : 12
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon leftpart . LexToken(TkReplace,'=',4,66)
+DEBUG:root:Action : Shift and goto state 22
+DEBUG:root:
+DEBUG:root:State  : 22
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon leftpart TkReplace . LexToken(TkBool,'True',4,68)
+DEBUG:root:Action : Shift and goto state 41
+DEBUG:root:
+DEBUG:root:State  : 41
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon leftpart TkReplace TkBool . LexToken(TkSemicolon,';',4,72)
+INFO:root:Action : Reduce rule [result -> TkBool] with ['True'] and goto state 38
+INFO:root:Result : <Node @ 0x7feaa3da02b0> ('result:\n\tTrue')
+DEBUG:root:
+DEBUG:root:State  : 38
+DEBUG:root:Defaulted state 38: Reduce using 27
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon leftpart TkReplace result . LexToken(TkSemicolon,';',4,72)
+INFO:root:Action : Reduce rule [rightpart -> TkReplace result] with ['=',<Node @ 0x7feaa3da02b0>] and goto state 23
+INFO:root:Result : <Node @ 0x7feaa3da06a0> ('rightpart:\n\tresult:\n\t\tTrue')
+DEBUG:root:
+DEBUG:root:State  : 23
+DEBUG:root:Defaulted state 23: Reduce using 11
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon leftpart rightpart . LexToken(TkSemicolon,';',4,72)
+INFO:root:Action : Reduce rule [sentence -> leftpart rightpart] with [<Node @ 0x7feaa3da05e0>,<Node @ 0x7feaa3da06a0>] and goto state 10
+INFO:root:Result : <Node @ 0x7feaa3da05b0> ('sentence:\n\tleftpart:\n\t\tpattern:\n\ ...)
+DEBUG:root:
+DEBUG:root:State  : 10
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence . LexToken(TkSemicolon,';',4,72)
+DEBUG:root:Action : Shift and goto state 20
+DEBUG:root:
+DEBUG:root:State  : 20
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon . LexToken(TkVar,'s.1',5,79)
+DEBUG:root:Action : Shift and goto state 14
+DEBUG:root:
+DEBUG:root:State  : 14
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon TkVar . LexToken(TkVar,'e.2',5,83)
+DEBUG:root:Action : Shift and goto state 14
+DEBUG:root:
+DEBUG:root:State  : 14
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon TkVar TkVar . LexToken(TkVar,'s.1',5,87)
+DEBUG:root:Action : Shift and goto state 14
+DEBUG:root:
+DEBUG:root:State  : 14
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon TkVar TkVar TkVar . LexToken(TkReplace,'=',5,91)
+INFO:root:Action : Reduce rule [pattern -> TkVar] with ['s.1'] and goto state 26
+INFO:root:Result : <Node @ 0x7feaa3da04f0> ('pattern:\n\ts.1')
+DEBUG:root:
+DEBUG:root:State  : 26
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon TkVar TkVar pattern . LexToken(TkReplace,'=',5,91)
+INFO:root:Action : Reduce rule [pattern -> TkVar pattern] with ['e.2',<Node @ 0x7feaa3da04f0>] and goto state 26
+INFO:root:Result : <Node @ 0x7feaa3da04f0> ('pattern:\n\ts.1\n\te.2')
+DEBUG:root:
+DEBUG:root:State  : 26
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon TkVar pattern . LexToken(TkReplace,'=',5,91)
+INFO:root:Action : Reduce rule [pattern -> TkVar pattern] with ['s.1',<Node @ 0x7feaa3da04f0>] and goto state 13
+INFO:root:Result : <Node @ 0x7feaa3da04f0> ('pattern:\n\ts.1\n\te.2\n\ts.1')
+DEBUG:root:
+DEBUG:root:State  : 13
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon pattern . LexToken(TkReplace,'=',5,91)
+INFO:root:Action : Reduce rule [leftpart -> pattern] with [<Node @ 0x7feaa3da04f0>] and goto state 12
+INFO:root:Result : <Node @ 0x7feaa3da0880> ('leftpart:\n\tpattern:\n\t\ts.1\n\t\te.2 ...)
+DEBUG:root:
+DEBUG:root:State  : 12
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart . LexToken(TkReplace,'=',5,91)
+DEBUG:root:Action : Shift and goto state 22
+DEBUG:root:
+DEBUG:root:State  : 22
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace . LexToken(TkOpenCall,'<',5,93)
+DEBUG:root:Action : Shift and goto state 36
+DEBUG:root:
+DEBUG:root:State  : 36
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace TkOpenCall . LexToken(TkIdentifier,'Pal',5,94)
+DEBUG:root:Action : Shift and goto state 52
+DEBUG:root:
+DEBUG:root:State  : 52
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace TkOpenCall TkIdentifier . LexToken(TkVar,'e.2',5,98)
+INFO:root:Action : Reduce rule [call -> TkOpenCall TkIdentifier] with ['<','Pal'] and goto state 43
+INFO:root:Result : <Node @ 0x7feaa3da0910> ('call:\n\tPal')
+DEBUG:root:
+DEBUG:root:State  : 43
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call . LexToken(TkVar,'e.2',5,98)
+DEBUG:root:Action : Shift and goto state 39
+DEBUG:root:
+DEBUG:root:State  : 39
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call TkVar . LexToken(TkCloseCall,'>',5,101)
+INFO:root:Action : Reduce rule [result -> <empty>] with [] and goto state 59
+INFO:root:Result : <Node @ 0x7feaa3da07c0> ('result:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 59
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call TkVar result . LexToken(TkCloseCall,'>',5,101)
+INFO:root:Action : Reduce rule [result -> TkVar result] with ['e.2','result:\n\t'] and goto state 62
+INFO:root:Result : <Node @ 0x7feaa3da07c0> ('result:\n\te.2')
+DEBUG:root:
+DEBUG:root:State  : 62
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call result . LexToken(TkCloseCall,'>',5,101)
+DEBUG:root:Action : Shift and goto state 66
+DEBUG:root:
+DEBUG:root:State  : 66
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call result TkCloseCall . LexToken(TkSemicolon,';',5,102)
+INFO:root:Action : Reduce rule [result -> <empty>] with [] and goto state 71
+INFO:root:Result : <Node @ 0x7feaa3da0a30> ('result:\n\t')
+DEBUG:root:
+DEBUG:root:State  : 71
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace call result TkCloseCall result . LexToken(TkSemicolon,';',5,102)
+INFO:root:Action : Reduce rule [result -> call result TkCloseCall result] with ['call:\n\tPal',<Node @ 0x7feaa3da07c0>,'>','result:\n\t'] and goto state 38
+INFO:root:Result : <Node @ 0x7feaa3da0a30> ('result:\n\tcall:\n\t\tPal\n\tresult:\n\ ...)
+DEBUG:root:
+DEBUG:root:State  : 38
+DEBUG:root:Defaulted state 38: Reduce using 27
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart TkReplace result . LexToken(TkSemicolon,';',5,102)
+INFO:root:Action : Reduce rule [rightpart -> TkReplace result] with ['=',<Node @ 0x7feaa3da0a30>] and goto state 23
+INFO:root:Result : <Node @ 0x7feaa3da0c40> ('rightpart:\n\tresult:\n\t\tcall:\n\t\t\ ...)
+DEBUG:root:
+DEBUG:root:State  : 23
+DEBUG:root:Defaulted state 23: Reduce using 11
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon leftpart rightpart . LexToken(TkSemicolon,';',5,102)
+INFO:root:Action : Reduce rule [sentence -> leftpart rightpart] with [<Node @ 0x7feaa3da0880>,<Node @ 0x7feaa3da0c40>] and goto state 10
+INFO:root:Result : <Node @ 0x7feaa3da0940> ('sentence:\n\tleftpart:\n\t\tpattern:\n\ ...)
+DEBUG:root:
+DEBUG:root:State  : 10
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence . LexToken(TkSemicolon,';',5,102)
+DEBUG:root:Action : Shift and goto state 20
+DEBUG:root:
+DEBUG:root:State  : 20
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon . LexToken(TkVar,'e.1',6,109)
+DEBUG:root:Action : Shift and goto state 14
+DEBUG:root:
+DEBUG:root:State  : 14
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon TkVar . LexToken(TkReplace,'=',6,113)
+INFO:root:Action : Reduce rule [pattern -> TkVar] with ['e.1'] and goto state 13
+INFO:root:Result : <Node @ 0x7feaa3da0850> ('pattern:\n\te.1')
+DEBUG:root:
+DEBUG:root:State  : 13
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon pattern . LexToken(TkReplace,'=',6,113)
+INFO:root:Action : Reduce rule [leftpart -> pattern] with [<Node @ 0x7feaa3da0850>] and goto state 12
+INFO:root:Result : <Node @ 0x7feaa3da0af0> ('leftpart:\n\tpattern:\n\t\te.1')
+DEBUG:root:
+DEBUG:root:State  : 12
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon leftpart . LexToken(TkReplace,'=',6,113)
+DEBUG:root:Action : Shift and goto state 22
+DEBUG:root:
+DEBUG:root:State  : 22
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon leftpart TkReplace . LexToken(TkBool,'False',6,115)
+DEBUG:root:Action : Shift and goto state 41
+DEBUG:root:
+DEBUG:root:State  : 41
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon leftpart TkReplace TkBool . LexToken(TkSemicolon,';',6,120)
+INFO:root:Action : Reduce rule [result -> TkBool] with ['False'] and goto state 38
+INFO:root:Result : <Node @ 0x7feaa3da0ac0> ('result:\n\tFalse')
+DEBUG:root:
+DEBUG:root:State  : 38
+DEBUG:root:Defaulted state 38: Reduce using 27
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon leftpart TkReplace result . LexToken(TkSemicolon,';',6,120)
+INFO:root:Action : Reduce rule [rightpart -> TkReplace result] with ['=',<Node @ 0x7feaa3da0ac0>] and goto state 23
+INFO:root:Result : <Node @ 0x7feaa3da0d00> ('rightpart:\n\tresult:\n\t\tFalse')
+DEBUG:root:
+DEBUG:root:State  : 23
+DEBUG:root:Defaulted state 23: Reduce using 11
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon leftpart rightpart . LexToken(TkSemicolon,';',6,120)
+INFO:root:Action : Reduce rule [sentence -> leftpart rightpart] with [<Node @ 0x7feaa3da0af0>,<Node @ 0x7feaa3da0d00>] and goto state 10
+INFO:root:Result : <Node @ 0x7feaa3da0a00> ('sentence:\n\tleftpart:\n\t\tpattern:\n\ ...)
+DEBUG:root:
+DEBUG:root:State  : 10
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon sentence . LexToken(TkSemicolon,';',6,120)
+DEBUG:root:Action : Shift and goto state 20
+DEBUG:root:
+DEBUG:root:State  : 20
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon . LexToken(TkCloseBlock,'}',7,124)
+INFO:root:Action : Reduce rule [sentences -> sentence TkSemicolon] with [<Node @ 0x7feaa3da0a00>,';'] and goto state 37
+INFO:root:Result : <Node @ 0x7feaa3da0ca0> ('sentences:\n\tsentence:\n\t\tleftpart:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 37
+DEBUG:root:Defaulted state 37: Reduce using 8
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentence TkSemicolon sentences . LexToken(TkCloseBlock,'}',7,124)
+INFO:root:Action : Reduce rule [sentences -> sentence TkSemicolon sentences] with [<Node @ 0x7feaa3da0940>,';',<Node @ 0x7feaa3da0ca0>] and goto state 37
+INFO:root:Result : <Node @ 0x7feaa3da0ca0> ('sentences:\n\tsentence:\n\t\tleftpart:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 37
+DEBUG:root:Defaulted state 37: Reduce using 8
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentence TkSemicolon sentences . LexToken(TkCloseBlock,'}',7,124)
+INFO:root:Action : Reduce rule [sentences -> sentence TkSemicolon sentences] with [<Node @ 0x7feaa3da05b0>,';',<Node @ 0x7feaa3da0ca0>] and goto state 37
+INFO:root:Result : <Node @ 0x7feaa3da0ca0> ('sentences:\n\tsentence:\n\t\tleftpart:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 37
+DEBUG:root:Defaulted state 37: Reduce using 8
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentence TkSemicolon sentences . LexToken(TkCloseBlock,'}',7,124)
+INFO:root:Action : Reduce rule [sentences -> sentence TkSemicolon sentences] with [<Node @ 0x7feaa3da00d0>,';',<Node @ 0x7feaa3da0ca0>] and goto state 9
+INFO:root:Result : <Node @ 0x7feaa3da0ca0> ('sentences:\n\tsentence:\n\t\tleftpart:\ ...)
+DEBUG:root:
+DEBUG:root:State  : 9
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentences . LexToken(TkCloseBlock,'}',7,124)
+DEBUG:root:Action : Shift and goto state 19
+DEBUG:root:
+DEBUG:root:State  : 19
+DEBUG:root:Stack  : declaration body declaration TkOpenBlock sentences TkCloseBlock . $end
+INFO:root:Action : Reduce rule [body -> TkOpenBlock sentences TkCloseBlock] with ['{',<Node @ 0x7feaa3da0ca0>,'}'] and goto state 5
+INFO:root:Result : <Node @ 0x7feaa3da0550> ('body:\n\tsentences:\n\t\tsentence:\n\t\ ...)
+DEBUG:root:
+DEBUG:root:State  : 5
+DEBUG:root:Stack  : declaration body declaration body . $end
+INFO:root:Action : Reduce rule [unit -> <empty>] with [] and goto state 8
+INFO:root:Result : <NoneType @ 0x90ba10> (None)
+DEBUG:root:
+DEBUG:root:State  : 8
+DEBUG:root:Defaulted state 8: Reduce using 3
+DEBUG:root:Stack  : declaration body declaration body unit . $end
+INFO:root:Action : Reduce rule [unit -> declaration body unit] with [<Node @ 0x7feaa3d937c0>,<Node @ 0x7feaa3da0550>,None] and goto state 8
+INFO:root:Result : <Node @ 0x7feaa3da0a90> ('unit:\n\tdeclaration:\n\t\tPal\n\tbody: ...)
+DEBUG:root:
+DEBUG:root:State  : 8
+DEBUG:root:Defaulted state 8: Reduce using 3
+DEBUG:root:Stack  : declaration body unit . $end
+INFO:root:Action : Reduce rule [unit -> declaration body unit] with [<Node @ 0x7feaa3d93700>,<Node @ 0x7feaa3da0040>,<Node @ 0x7feaa3da0a90>] and goto state 1
+INFO:root:Result : <Node @ 0x7feaa3da0a90> ('unit:\n\tdeclaration:\n\t\tPal\n\tbody: ...)
+DEBUG:root:
+DEBUG:root:State  : 1
+DEBUG:root:Stack  : unit . $end
+INFO:root:Done   : Returning <Node @ 0x7feaa3da0a90> ('unit:\n\tdeclaration:\n\t\tPal\n\tbody: ...)
+INFO:root:PLY: PARSE DEBUG END

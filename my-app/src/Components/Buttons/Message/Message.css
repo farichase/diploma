@@ -1,0 +1,9 @@
+.message {
+    background-color: #f9f9f9;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    color: rgba(79, 107, 125, 0.6);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }

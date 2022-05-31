@@ -1,0 +1,47 @@
+$ENTRY Go { = <Prout <Sort 'qwertyuiopasdfghjklzxcvbnm'>>; }
+
+* Quick-sort
+Sort {
+    = ;
+   t.1 e.2, <Partit ()t.1()e.2>: (e.L)t.1(e.R) 
+         = <Sort e.L> t.1 <Sort e.R>;  
+     }
+ 
+* Partition list e.List by element s.M.
+* <Partit (e.Left)s.M(e.Right)e.Remaining-list>
+*       == (e.Left1)s.M(e.Right1)
+Partit {
+   (e.L)s.M(e.R) = (e.L)s.M(e.R);
+   (e.L)s.M(e.R) s.X e.2, <Order s.X s.M>:
+             {True = <Partit (e.L s.X)s.M(e.R) e.2>;
+              False = <Partit (e.L)s.M(e.R s.X) e.2>;
+             };
+}
+
+Order {
+  ()(e.Y) = True;
+  (e.X)() = False;
+  s.1 s.2 = <Compare_Types (<Type s.1>) <Type s.2>>;
+  (s.1 e.X)(s.1 e.Y) = <Order (e.X)(e.Y)>;
+  (s.1 e.X)(s.2 e.Y) = <Compare_Types (<Type s.1>) <Type s.2>>;
+  (t.1 e.X)(t.1 e.Y) = <Order (e.X)(e.Y)>;
+  (t.1 e.X)(t.2 e.Y) = <Order t.1 t.2>;
+  s.1 (e.Y)  = True;
+  (e.X) s.2 =  False;
+}
+
+Compare_ {
+  (s.1) s.1 = True;
+  (s.1) s.2, <- s.1 s.2>: '-'e.1 = True;
+  e.1 = False;
+}
+
+Compare_Types {
+  (s.Type s.st1 e.1) s.Type s.st2 e.2, s.Type:
+	   { 
+	    'W' = <Order (<Explode e.1>) (<Explode e.2>)>;
+	    'N' = <Compare_ (e.1) e.2>;
+	    s.T = <Compare_ (<Ord e.1>) <Ord e.2>>;
+   };
+  (s.Type1 e.1) s.Type2 e.2 = <Compare_ (<Ord s.Type1>) <Ord s.Type2>>;
+}

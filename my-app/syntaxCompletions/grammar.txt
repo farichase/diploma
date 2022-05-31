@@ -1,0 +1,31 @@
+Program ::= Unit
+Unit ::= Declaration | Definition | Unit
+
+Declaration ::="$EXTERN" NameList | "$ENTRY" NameList
+
+Name ::= IDENT
+NameList ::= Name { "," Name } ";"
+
+Definition ::= Name Body
+
+Body ::= "{" Sentences "}"
+
+Sentences ::= Sentence ";" | Sentences
+Sentence ::= LeftPart RightPart
+
+LeftPart ::= Pattern { Condition } | Pattern
+Condition ::= "," Result ":" Pattern
+RightPart ::= "=" Result 
+
+Pattern ::= Value | "(" Pattern ")" |  VARIABLE | "{" Pattern "}"
+
+Value ::= BOOL | CHAR | NUMBER
+
+Result ::= Value | VARIABLE | "(" Result ")" | OpenCall Result ">" | "{" Result "}"
+OpenCall ::= "<" Name | "<+" | "<-" | "<*" | "</" | "<%" | "<?"
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 45px;
+    padding: 10px 0;
+    background-color:rgba(79, 107, 125, 0.3);
+    
+}

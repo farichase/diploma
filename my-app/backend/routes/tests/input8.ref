@@ -1,0 +1,21 @@
+$ENTRY Go {
+ e.x1 =  <Check_0 e.x1>;
+}
+
+
+Check_0 {
+ e.x1 'ip' e.x2 =  <Check_3_0 (e.x1) (e.x2)>;
+ e.x1 =  <Check_13_0 e.x1>;
+}
+
+
+Check_3_0 {
+ (t.y1 e.x1) (e.x2) =  <Check_3_0 (e.x1) (e.x2)>;
+ () (e.x1) =  <Check_0 e.x1>;
+}
+
+
+Check_13_0 {
+ =  'T';
+ t.y1 e.x1 =  <Check_13_0 e.x1>;
+}

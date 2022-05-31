@@ -1,0 +1,70 @@
+.OutputAreaCodeClass {
+	margin-top:0px;
+	height: 820px;
+	width: 50%; 
+	margin-left: 0px;
+	display: flex;
+  flex-direction: column;
+  resize: none;
+  overflow: hidden;
+  cursor: text;
+  outline: none;
+  border-left:dotted;	
+  border-top:none;
+  border-right:none;
+  border-bottom: none;
+  border-color: rgba(79, 107, 125, 0.6);
+  	
+  box-sizing: border-box;
+  resize: horizontal;
+}
+.Lines {
+	width:5%;
+	margin-top:0px;
+	text-align: center;
+  pointer-events: auto;
+	margin-left:0px;
+  /* background: rgba(79, 107, 125, 0.3); */
+  overflow: hidden;
+  display: flex;
+  flex-direction: Row;
+  position: relative;
+}
+.Cells {
+  margin-top:0%;
+	padding-left: 10px;
+  padding-right: 0px;
+	height: 60px;
+	width: 100%;
+  color: #4D4D4C;
+
+}
+.OutputAreaCode {
+	margin-top:0px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+  flex-direction: Row;
+  resize: none;
+  outline: none;
+  font-size: 15px;
+  border:none;	
+  box-sizing: border-box;
+
+}
+
+.img-wrapper {
+  box-sizing: border-box;
+  overflow-x: auto;
+  height: 100%;
+}
+
+img.hover-zoom {
+  /* transition: all 0.3s ease 0s; */
+  box-sizing: border-box;
+  position: relative;
+  z-index:-1
+}
+/* img.hover-zoom:hover {
+  transform: scale(1.25);
+}  */

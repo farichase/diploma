@@ -1,0 +1,9 @@
+Start: Tue May 31 17:01:05 2022
+The top of a whole subgraph was built:
+e.41 -> [];  0 + 0 =  0 0' + 0 =  0 ' 0 + 0' =  0 ' 0' + 0' =  0 ' ' 0'' + 0''' =  0 ' ' ' ' ' <- e.out ; 
+Content: GRAPH 
+
+* Format: <GRAPH1 > <- { e.out }
+GRAPH1 { 
+e.41 -> [];  {0 + 0 =  0 0' + 0 =  0 ' 0 + 0' =  0 ' 0' + 0' =  0 ' ' 0'' + 0''' =  0 ' ' ' ' ' <-e.out ; } /* output */}
+Finish: Tue May 31 17:01:05 2022
