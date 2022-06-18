@@ -4,7 +4,7 @@
 ### Запуск
 ```sh
 	git clone https://github.com/farichase/diploma.git
-	cd SuperCompiler/my-app
+	cd diploma/my-app
 	chmod +x setup.sh
 	./setup.sh
 	npm install
@@ -12,12 +12,12 @@
 ```	
 ##### Запуск сервера (консоль №1):
 ```sh
-	cd SuperCompiler/my-app/backend
+	cd diploma/my-app/backend
 	sudo node app
 ```	
 ##### Запуск клиента (консоль №2):
 ```sh
-	cd SuperCompiler/my-app
+	cd diploma/my-app
 	npm start
 ```	
 
