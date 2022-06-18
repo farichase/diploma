@@ -1,14 +1,18 @@
-FROM ubuntu:18.04 as refal_host
+FROM ubuntu:20.04 as refal_host
 
 RUN apt-get update
 RUN apt-get install -y git dos2unix curl unzip sed g++
 
-
-RUN apt-get update && apt-get install -y python3.8 python3-distutils python3-pip python3-apt
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y keyboard-configuration
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update && apt-get install -y python3.10 python3-distutils python3-pip python3-apt
 RUN apt install python3-ply
 RUN apt-get install python3-pip
 RUN pip3 install file_read_backwards
 RUN pip3 install graphviz
+# RUN pip3 install pydot pydot-ng
+RUN apt-get install -y graphviz
 # fetch refal-5-lambda
 WORKDIR /usr/src
 RUN git clone https://github.com/bmstu-iu9/simple-refal-distrib.git
@@ -47,7 +51,6 @@ WORKDIR /SuperCompiler/my-app
 COPY graphs.7z .
 RUN 7z x graphs.7z
 
-
 #install mscp-a trace
 # WORKDIR /SuperCompiler/my-app	
 # COPY mscp-trace.7z .
@@ -58,15 +61,8 @@ RUN 7z x graphs.7z
 WORKDIR /SuperCompiler/my-app
 COPY decode_graph.ref .
 RUN rlmake decode_graph.ref
-#RUN git clone -b design_dot-graph https://github.com/bmstu-iu9/SCP-Graphs.git
-
 
 WORKDIR /SuperCompiler/my-app
-# ADD syntaxCompletions .
-
-# COPY python_test.py .	
-# RUN python3 -u main.py
-
 
 WORKDIR /backend
 

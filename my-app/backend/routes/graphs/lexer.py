@@ -94,7 +94,7 @@ def t_TkIdent(t):
     r'[A-Za-z0-9\_]+'
     return t
 def t_TkValue(t):
-    r'[A-Za-z\-\_,!0-9]+'
+    r'[A-Za-z\-\_,!0-9,:;!?\<\>.+\|]+'
     return t
 
 def t_newline(t):

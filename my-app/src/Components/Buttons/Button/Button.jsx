@@ -86,10 +86,9 @@ class Button extends Component {
 				return res.json()
 			}
 		})
-
 		this.props.changeResult(res.data)	
-		if (this.props.selectedCompilerVersion == "MSCP-A" && this.props.selectedFileFormat == "dot") {
-			console.log("true")
+
+		if (res.data === "stdout" && this.props.selectedCompilerVersion == "MSCP-A" && this.props.selectedFileFormat == "dot") {
 			const res2 = await fetch('http://localhost:8080/files/graph', {
 				method: 'POST',
 				headers: { "Content-Type": "application/json" },
@@ -101,9 +100,22 @@ class Button extends Component {
 					return res.json()
 				}
 			})
-			console.log(res2.data)
+			if (res2.data === "stdout") {
+				const res3 = await fetch('http://localhost:8080/files/loadgraph', {
+					method: 'POST',
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						data: ""
+					}),
+				}).then(res => {
+					if (res.ok) {
+						return res.json()
+					}
+				})
+				if (res3.data === "stdout") this.props.changeResult(res2.data)	
+			} 
 			this.props.changeResult(res2.data)	
-		
+
 		}
 	
 		

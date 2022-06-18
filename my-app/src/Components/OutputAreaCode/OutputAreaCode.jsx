@@ -22,18 +22,21 @@ const OutputAreaCode = ({ result }) => {
 	return (
 		<div className="OutputAreaCodeClass">
 			{
-				+result === 1 ? 
+				result === "stdout" &&
 				<div className="img-wrapper" onWheelCapture={onScroll}>
 					<img src={image} alt="" className="hover-zoom"
 						style={{
 							transformOrigin: "0 0",
 							transform: `translate(${pos.x}px, ${pos.y}px) scale(${pos.scale})`
 						}} />
-				</div> : <textarea className="OutputAreaCode" wrap="soft" disabled={true} value={result}></textarea>
-
-
+				</div> 
 			}
-
+			{
+				result === "It is impossible to build a graph" && <textarea className="OutputAreaCode" wrap="soft" disabled={true} value={"It is impossible to build a graph"}></textarea>
+			}
+			{
+				result !== "" && result !== "It is impossible to build a graph" && result !== "stdout" && <textarea className="OutputAreaCode" wrap="soft" disabled={true} value={result}></textarea>
+			}
 		</div>
 	)
 }

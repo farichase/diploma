@@ -533,7 +533,7 @@ def build_tree(code):
     return parser.parse(code, debug=log)
 
 
-f = open('/home/farida/SuperCompiler/my-app/backend/routes/graphs/log.scpgraph', 'r')
+f = open('log.scpgraph', 'r')
 rdata = f.read()
 
 data = rdata.replace("Looped to", "---------").replace("Looped", "Finished").replace("---------", "Looped to")

@@ -18,16 +18,33 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/graph', async (req, res) => {
-  exec(`/home/farida/SuperCompiler/my-app/backend/graph.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
-       
-    console.log(`stderr: ${error}`);
-     
-    console.log(`stderr: ${stderr}`);
-    console.log(`stdout: ${stdout}`);
-    
+  exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./graphs.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
+         
+    if (error) {
+      res.json({
+        data: "It is impossible to build a graph"
+      })
+      return;
+    }
+    if (stderr) {
+      res.json({
+        data: "It is impossible to build a graph"
+      })
+      return;
+    }
     res.json({
-      data: "1"
+      data: "stdout"
     })
+    return;
+  })
+});
+
+router.post('/loadgraph', async (req, res) => {
+  // console.log(`${__dirname}/../../../graphsload.sh`)
+  exec(`${__dirname}/graphsload.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
+    // console.log(error)
+    // console.log(stderr)
+    // console.log(stdout)
   })
 });
 
@@ -40,6 +57,7 @@ router.post('/transform', async (req, res) => {
   fs.writeFileSync(`${__dirname}/../../../cont/log_ref.dot`, "")
 
   if (compilerVersion === 'SCP4' && fileFormat === 'ref') {
+
     exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./compile.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
       if (error) {
         res.json({
@@ -54,15 +72,13 @@ router.post('/transform', async (req, res) => {
         })
         return;
       }
-
       console.log(`stdout: ${stdout}`);
-
-
       let fileContent = fs.readFileSync(`${__dirname}/../../../cont/r_text.ref`, "utf8");
       res.json({
         data: fileContent
       })
     })
+
   } else if (compilerVersion === 'MSCP-A' && fileFormat === 'ref') {
     console.log(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`)
     exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`, { shell: "/bin/bash", timeout: 2000 }, (error, stdout, stderr) => {
@@ -91,13 +107,22 @@ router.post('/transform', async (req, res) => {
   } else if (compilerVersion === 'MSCP-A' && fileFormat === 'dot') {
       exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
        
-        console.log(`stderr: ${error}`);
-         
-        console.log(`stderr: ${stderr}`);
-        console.log(`stdout: ${stdout}`);
+        if (error) {
+          res.json({
+            data: "It is impossible to build a graph"
+          })
+          return;
+        }
+        if (stderr) {
+          res.json({
+            data: "It is impossible to build a graph"
+          })
+          return;
+        }
         res.json({
-          data: ""
+          data: "stdout"
         })
+        return;
       })
 
   }

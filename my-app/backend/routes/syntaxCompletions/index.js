@@ -7,9 +7,6 @@ const exec = require("child_process").execFile;
 router.post('/exec', async (req, res) => {
   let data = req.body.data
   fs.writeFileSync(`${__dirname}/../../../cont/SuperCompilerInput.txt`, data)
-  // com = '/home/farida/SuperCompiler/my-app/syntaxCompletions/main.py"'
-  // com2 = "python3 -u \"" + com
-  // console.log(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./syntaxcompl.sh`)
   exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./syntaxcompl.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
       if (error) {
         res.status(201).json({
