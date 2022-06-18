@@ -63,7 +63,9 @@ img.hover-zoom {
   /* transition: all 0.3s ease 0s; */
   box-sizing: border-box;
   position: relative;
-  z-index:-1
+  z-index:-1;
+  height: auto;
+  max-width: 100%;
 }
 /* img.hover-zoom:hover {
   transform: scale(1.25);

@@ -86,9 +86,9 @@ class Button extends Component {
 				return res.json()
 			}
 		})
-		this.props.changeResult(res.data)	
-
-		if (res.data === "stdout" && this.props.selectedCompilerVersion == "MSCP-A" && this.props.selectedFileFormat == "dot") {
+		if (!(this.props.selectedCompilerVersion == "MSCP-A" && this.props.selectedFileFormat == "dot")) {
+			this.props.changeResult(res.data)
+		} else if (res.data === "stdout" && this.props.selectedCompilerVersion == "MSCP-A" && this.props.selectedFileFormat == "dot") {
 			const res2 = await fetch('http://localhost:8080/files/graph', {
 				method: 'POST',
 				headers: { "Content-Type": "application/json" },
@@ -112,14 +112,9 @@ class Button extends Component {
 						return res.json()
 					}
 				})
-				if (res3.data === "stdout") this.props.changeResult(res2.data)	
-			} 
-			this.props.changeResult(res2.data)	
-
-		}
-	
-		
-		
+				this.props.changeResult(res3.data)	
+			} else this.props.changeResult("It is impossible to build a graph")	
+		} else  this.props.changeResult("It is impossible to build a graph")
 	}
 	
 	downloadData = async() => {		

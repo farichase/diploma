@@ -1,21 +1,51 @@
 New Clash: No 1 
-  Clash: ((cavallo)to ((var e W )))
+  Clash: (((par e x1 ))to ((var e x1 )ip(var e x2 )))
 
 
 Testing negative block in No.1 : 
-  Narrowings: 
-  Assignments: (assign (var e W )(cavallo))
+  Narrowings: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Assignments: (assign (var e x1 )((par e 1 )))(assign (var e x2 )((par e 2 )))
 
 
 ***************** END OF NEGATIVE TESTING No.1  *************************
 
     PRTC No.1  Class C IS COMPLETED:
+  Narrowings: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Assignments: (assign (var e x1 )((par e 1 )))(assign (var e x2 )((par e 2 )))
+
+ to
+  Narrowings: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Assignments: (assign (var e x1 )((par e 1 )))(assign (var e x2 )((par e 2 )))
+
+---------------------------------------------------------------------------
+
+Normalizing negative clash No. 2 
+(((par e 1 )i)to ((var e Neg1 )ip))
+New Clash: No 3 
+  Clash: (((par e x1 ))to ((var e x1 )))
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Testing negative block in No.3 : 
   Narrowings: 
-  Assignments: (assign (var e W )(cavallo))
+  Assignments: (assign (var e x1 )((par e x1 )))
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Normalizing negative clash No. 4 
+(((par e x1 ))to ((var e Neg3 )ip(var e Neg4 )))
+New negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+***************** END OF NEGATIVE TESTING No.3  *************************
+
+    PRTC No.3  Class C IS COMPLETED:
+  Narrowings: 
+  Assignments: (assign (var e x1 )((par e x1 )))
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
  to
   Narrowings: 
-  Assignments: (assign (var e W )(cavallo))
+  Assignments: (assign (var e x1 )((par e x1 )))
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
 
 ---------------------------------------------------------------------------
 
@@ -23,260 +53,990 @@ Testing negative block in No.1 :
          SIMPLE NODE (0 ) with status: ReadyForGenCheck 
   Restrictions: 
 
-  Configuration: (call ((Ital-Engl (1 ))1 )(args (arg cavallo)))
+  Configuration: (call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
   Stack: 
-      (assign (var l (0 ))((call ((Ital-Engl (1 ))1 )(args (arg cavallo)))))
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
 
   Children of (0 ): 
 ==================================================================================
          SIMPLE NODE (0 0 ) with status: Undriven 
-  Restrictions: Always 
+  Restrictions: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))
+  Configuration: (call (Check_3_0 2 )(args (arg (*(par e 1 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))))
+      (assign (var l (0 ))((call (Check_3_0 2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
 
   Children of (0 0 ): 
 ======================== NODE (0 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 1 ) with status: Undriven 
+  Restrictions: Always 
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Configuration: (call (Check_13_0 3 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 3 )(args (arg (par e x1 ))))))
+
+  Children of (0 1 ): 
+======================== NODE (0 1 ) INFO END====================================
 ======================== NODE (0 ) INFO END====================================
 
-New Clash: No 2 
-  Clash: (((*cavallo)(call (Table 3 )(args (arg ))))to ((*(var e Word ))(var e 1 )(*(*(var e Word ))(var e Trans ))(var e 2 )))
+New Clash: No 5 
+  Clash: (((*(par e 1 ))(*(par e 2 )))to ((*(var t y1 )(var e x1 ))(*(var e x2 ))))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
 
-(((New (Desired (AreEqual (F)((call (Table 3 )(args (arg ))))())))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Word )(cavallo)))((Delayed ))(T))
-Splitting...
-(AreEqual (T)((weval e 1 ))())
-New assignments:
-(assign (weval e 1 )((0 Const ))())
-New common data:
-(assign (weval e 1 )((0 Const ))())
-New assignments:
-(assign (weval e 1 )((0 Const ))())
-Testing negative block in No.2 : 
-  Narrowings: 
-  Assignments: (assign (var e Word )(cavallo))
-  Equations New: (Desired (AreEqual (T)((call (Table 3 )(args (arg ))))()))
+Testing negative block in No.5 : 
+  Narrowings: (assign (par e 1 )((par t 1 )(par e 5 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 1 )))(assign (var e x1 )((par e 5 )))
+  Equations Negative: (OR (D)(((par t 1 )(par e 5 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
 
-***************** END OF NEGATIVE TESTING No.2  *************************
+Normalizing negative clash No. 6 
+(((par t 1 )(par e 5 ))to ((var e Neg1 )ip(var e Neg2 )))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg1 )()))((((par t 1 )(par e 5 ))to (ip(var e Neg2 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg1 )((par t 1 )(var e 1 ))))((((par e 5 ))to ((var e 1 )ip(var e Neg2 )))(Delayed ))(T))
+New negative: (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+New negative: (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
 
-    PRTC No.2  Class C IS COMPLETED:
-  Narrowings: 
-  Assignments: (assign (var e Word )(cavallo))
-  Equations New: (Desired (AreEqual (F)((call (Table 3 )(args (arg ))))()))
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+***************** END OF NEGATIVE TESTING No.5  *************************
+
+    PRTC No.5  Class C IS COMPLETED:
+  Narrowings: (assign (par e 1 )((par t 1 )(par e 5 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 1 )))(assign (var e x1 )((par e 5 )))
+  Equations Negative: (OR (D)(((par t 1 )(par e 5 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
  to
-  Narrowings: 
-  Assignments: (assign (var e Word )(cavallo))
-  Equations New: (Desired (AreEqual (T)((call (Table 3 )(args (arg ))))()))
+  Narrowings: (assign (par e 1 )((par t 1 )(par e 5 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 1 )))(assign (var e x1 )((par e 5 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
 ---------------------------------------------------------------------------
 
-Multiset of calls to be resolved:
-(2 (call (Table 3 )(args (arg ))))
-==================================================================================
-         SIMPLE NODE (0 0 ) with status: Driven 
-  Restrictions: Always 
+ToScreen inequalities:
 
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))
-  Stack: 
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))))
+    (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
+    (OR (T)(((par e 1 ))to ((var t Neg1 )(var e Neg6 ))))
+Screened inequalities:
 
-  Children of (0 0 ): 
-==================================================================================
-         SIMPLE NODE (0 0 0 ) with status: Ready 
-  Restrictions: Push 
-
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))
-  Stack: 
-      (assign (var l (1 ))((call (Table 3 )(args (arg )))))
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(var l (1 )))))))
-
-  Children of (0 0 0 ): 
-======================== NODE (0 0 0 ) INFO END====================================
-======================== NODE (0 0 ) INFO END====================================
-
-New stack is ((assign (var l (1 ))((call (Table 3 )(args (arg ))))))((assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(var l (1 ))))))))
-==================================================================================
-         SIMPLE NODE (0 0 ) with status: Ready 
-  Restrictions: Always 
-
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call (Table 3 )(args (arg ))))))
-  Stack: 
-      (assign (var l (1 ))((call (Table 3 )(args (arg )))))
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(var l (1 )))))))
-
-  Children of (0 0 ): 
-======================== NODE (0 0 ) INFO END====================================
-
-New Clash: No 3 
-  Clash: (()to ())
+    (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
+    (OR (T)(((par e 1 ))to ((var t Neg1 )(var e Neg6 ))))
+New Clash: No 7 
+  Clash: (((*(par e 1 ))(*(par e 2 )))to ((*)(*(var e x1 ))))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
+    (OR (T)(((par e 1 ))to ((var t Neg1 )(var e Neg6 ))))
 
 
-Testing negative block in No.3 : 
-  Clash: 
+Testing negative block in No.7 : 
+  Narrowings: (assign (par e 1 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(()to ((var e Neg1 )ip(var e Neg2 ))))
+    (OR (T)(()to ((var t Neg1 )(var e Neg6 ))))
 
 
-***************** END OF NEGATIVE TESTING No.3  *************************
+Normalizing negative clash No. 8 
+(()to ((var e Neg1 )ip(var e Neg2 )))
+Normalizing negative clash No. 9 
+(()to ((var t Neg1 )(var e Neg6 )))
+***************** END OF NEGATIVE TESTING No.7  *************************
 
-    PRTC No.3  Class C IS COMPLETED:
-  Clash: 
+    PRTC No.7  Class C IS COMPLETED:
+  Narrowings: (assign (par e 1 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(()to ((var e Neg1 )ip(var e Neg2 ))))
+    (OR (T)(()to ((var t Neg1 )(var e Neg6 ))))
 
  to
-  Clash: 
+  Narrowings: (assign (par e 1 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
 
 ---------------------------------------------------------------------------
 
 ==================================================================================
          SIMPLE NODE (0 0 ) with status: ReadyForGenCheck 
-  Restrictions: Always 
+  Restrictions: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call ((Table (1 ))3 )(args (arg ))))))
+  Configuration: (call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (1 ))((call ((Table (1 ))3 )(args (arg )))))
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(var l (1 )))))))
+      (assign (var l (0 ))((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
 
   Children of (0 0 ): 
 ==================================================================================
          SIMPLE NODE (0 0 0 ) with status: Undriven 
-  Restrictions: Always 
+  Restrictions: (assign (par e 1 )((par t 1 )(par e 5 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))
+  Configuration: (call (Check_3_0 4 )(args (arg (*(par e 5 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))))
+      (assign (var l (0 ))((call (Check_3_0 4 )(args (arg (*(par e 5 ))(*(par e 2 )))))))
 
   Children of (0 0 0 ): 
 ======================== NODE (0 0 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 0 1 ) with status: Undriven 
+  Restrictions: (assign (par e 1 )())
+
+  Configuration: (call (Check_0 5 )(args (arg (par e 2 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_0 5 )(args (arg (par e 2 ))))))
+
+  Children of (0 0 1 ): 
+======================== NODE (0 0 1 ) INFO END====================================
 ======================== NODE (0 0 ) INFO END====================================
 
-New Clash: No 4 
-  Clash: (((*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))to ((*(var e Word ))(var e 1 )(*(*(var e Word ))(var e Trans ))(var e 2 )))
+  Trying to embed: 
+(((Check_0 (1 2 ))1 ))
+ and 
+(((Check_3_0 (1 2 ))2 ))
+New Clash: No 10 
+  Clash: (((*(par e 5 ))(*(par e 2 )))to ((*(var t y1 )(var e x1 ))(*(var e x2 ))))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
 
-(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 1 )((*(*cane)dog)(var e 1 )))(assign (var e Word )(cavallo)))((((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))to ((var e 1 )(*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))
-(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 1 )())(assign (var e 1 )((*(*cane)dog)))(assign (var e Word )(cavallo)))((((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))to ((*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 1 )((*(*gatto)cat)(var e 2 )))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(var e 2 )))(assign (var e Word )(cavallo)))((((*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))to ((var e 2 )(*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))
-(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 2 )())(assign (var e 1 )((*(*gatto)cat)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)))(assign (var e Word )(cavallo)))((((*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))to ((*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 2 )((*(*cavallo)horse)(var e 3 )))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)(var e 3 )))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(var e 3 )))(assign (var e Word )(cavallo)))((((*(*rana)frog)(*(*porco)pig))to ((var e 3 )(*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))
-(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 3 )())(assign (var e 2 )((*(*cavallo)horse)))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)))(assign (var e Word )(cavallo)))((((*(*rana)frog)(*(*porco)pig))to ((*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 3 )((*(*rana)frog)(var e 4 )))(assign (var e 2 )((*(*cavallo)horse)(*(*rana)frog)(var e 4 )))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(var e 4 )))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(var e 4 )))(assign (var e Word )(cavallo)))((((*(*porco)pig))to ((var e 4 )(*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))
-(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 4 )())(assign (var e 3 )((*(*rana)frog)))(assign (var e 2 )((*(*cavallo)horse)(*(*rana)frog)))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)))(assign (var e Word )(cavallo)))((((*(*porco)pig))to ((*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 4 )((*(*porco)pig)(var e 5 )))(assign (var e 3 )((*(*rana)frog)(*(*porco)pig)(var e 5 )))(assign (var e 2 )((*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig)(var e 5 )))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig)(var e 5 )))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig)(var e 5 )))(assign (var e Word )(cavallo)))((()to ((var e 5 )(*(*(var e Word ))(var e Trans ))(var e 2 )))(Delayed ))(T))
-Splitting...
-(AreEqual (T)(cavallo)(gatto))
-    PRTC No.4  FAILED in equation block:
-  Narrowings: 
-  Assignments: (assign (var e 2 )((*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig)))(assign (var e Trans )(cat))(assign (var e 1 )())(assign (var e 1 )((*(*cane)dog)))(assign (var e Word )(cavallo))
-  Equations New: (AreEqual (F)(cavallo)(gatto))
-    (Desired )
+Testing negative block in No.10 : 
+  Narrowings: (assign (par e 5 )((par t 2 )(par e 10 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 2 )))(assign (var e x1 )((par e 10 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par t 2 )(par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par t 2 )(par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
 
----------------------------------------------------------------------------
+Normalizing negative clash No. 11 
+(((par t 1 ))to (i))(((par t 2 )(par e 10 ))to (p(var e Neg2 )))
+New negative: (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+Normalizing negative clash No. 12 
+(((par t 2 )(par e 10 ))to ((var e Neg3 )ip(var e Neg4 )))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg3 )()))((((par t 2 )(par e 10 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg3 )((par t 2 )(var e 1 ))))((((par e 10 ))to ((var e 1 )ip(var e Neg4 )))(Delayed ))(T))
+New negative: (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+New negative: (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
 
-Testing negative block in No.4 : 
-  Narrowings: 
-  Assignments: (assign (var e 2 )((*(*rana)frog)(*(*porco)pig)))(assign (var e Trans )(horse))(assign (var e 2 )())(assign (var e 1 )((*(*gatto)cat)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)))(assign (var e Word )(cavallo))
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
 
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
 
-***************** END OF NEGATIVE TESTING No.4  *************************
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
 
-    PRTC No.4  Class C IS COMPLETED:
-  Narrowings: 
-  Assignments: (assign (var e 2 )((*(*rana)frog)(*(*porco)pig)))(assign (var e Trans )(horse))(assign (var e 2 )())(assign (var e 1 )((*(*gatto)cat)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)))(assign (var e Word )(cavallo))
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
+***************** END OF NEGATIVE TESTING No.10  *************************
+
+    PRTC No.10  Class C IS COMPLETED:
+  Narrowings: (assign (par e 5 )((par t 2 )(par e 10 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 2 )))(assign (var e x1 )((par e 10 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par t 2 )(par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par t 2 )(par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
  to
-  Narrowings: 
-  Assignments: (assign (var e 2 )((*(*rana)frog)(*(*porco)pig)))(assign (var e Trans )(horse))(assign (var e 2 )())(assign (var e 1 )((*(*gatto)cat)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)))(assign (var e Word )(cavallo))
+  Narrowings: (assign (par e 5 )((par t 2 )(par e 10 )))
+  Assignments: (assign (var e x2 )((par e 2 )))(assign (var t y1 )((par t 2 )))(assign (var e x1 )((par e 10 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
 ---------------------------------------------------------------------------
 
-Splitting...
-(AreEqual (T)(cavallo)(rana))
-    PRTC No.4  FAILED in equation block:
-  Narrowings: 
-  Assignments: (assign (var e 2 )((*(*porco)pig)))(assign (var e Trans )(frog))(assign (var e 3 )())(assign (var e 2 )((*(*cavallo)horse)))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)))(assign (var e Word )(cavallo))
-  Equations New: (AreEqual (F)(cavallo)(rana))
-    (Desired )
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 5 ))to ((var t Neg1 )(var e Neg6 ))))
+Screened inequalities:
+
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 5 ))to ((var t Neg1 )(var e Neg6 ))))
+New Clash: No 13 
+  Clash: (((*(par e 5 ))(*(par e 2 )))to ((*)(*(var e x1 ))))
+  Equations Negative: (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 5 ))to ((var t Neg1 )(var e Neg6 ))))
 
 
----------------------------------------------------------------------------
+Testing negative block in No.13 : 
+  Narrowings: (assign (par e 5 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(()to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(()to ((var t Neg1 )(var e Neg6 ))))
 
-Splitting...
-(AreEqual (T)(cavallo)(porco))
-    PRTC No.4  FAILED in equation block:
-  Narrowings: 
-  Assignments: (assign (var e 2 )())(assign (var e Trans )(pig))(assign (var e 4 )())(assign (var e 3 )((*(*rana)frog)))(assign (var e 2 )((*(*cavallo)horse)(*(*rana)frog)))(assign (var e 1 )((*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)))(assign (var e 1 )((*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)))(assign (var e Word )(cavallo))
-  Equations New: (AreEqual (F)(cavallo)(porco))
-    (Desired )
 
+Normalizing negative clash No. 14 
+(()to ((var e Neg3 )ip(var e Neg4 )))
+Normalizing negative clash No. 15 
+(()to ((var t Neg1 )(var e Neg6 )))
+***************** END OF NEGATIVE TESTING No.13  *************************
+
+    PRTC No.13  Class C IS COMPLETED:
+  Narrowings: (assign (par e 5 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(()to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(()to ((var t Neg1 )(var e Neg6 ))))
+
+ to
+  Narrowings: (assign (par e 5 )())
+  Assignments: (assign (var e x1 )((par e 2 )))
 
 ---------------------------------------------------------------------------
 
 ==================================================================================
          SIMPLE NODE (0 0 0 ) with status: ReadyForGenCheck 
-  Restrictions: Always 
+  Restrictions: (assign (par e 1 )((par t 1 )(par e 5 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
-  Configuration: (call ((Trans (1 ))2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))
+  Configuration: (call ((Check_3_0 (1 2 ))4 )(args (arg (*(par e 5 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (0 ))((call ((Trans (1 ))2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))))
+      (assign (var l (0 ))((call ((Check_3_0 (1 2 ))4 )(args (arg (*(par e 5 ))(*(par e 2 )))))))
 
   Children of (0 0 0 ): 
 ==================================================================================
          SIMPLE NODE (0 0 0 0 ) with status: Undriven 
-  Restrictions: Always 
+  Restrictions: (assign (par e 5 )((par t 2 )(par e 10 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par t 2 ))to (p)))
+    (OR (T)(((par t 2 ))to (i))(((par e 10 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 10 ))to ((var e Neg3 )ip(var e Neg4 ))))
 
-  Configuration: horse
+  Configuration: (call (Check_3_0 6 )(args (arg (*(par e 10 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (0 ))(horse))
+      (assign (var l (0 ))((call (Check_3_0 6 )(args (arg (*(par e 10 ))(*(par e 2 )))))))
 
   Children of (0 0 0 0 ): 
 ======================== NODE (0 0 0 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 0 0 1 ) with status: Undriven 
+  Restrictions: (assign (par e 5 )())
+
+  Configuration: (call (Check_0 7 )(args (arg (par e 2 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_0 7 )(args (arg (par e 2 ))))))
+
+  Children of (0 0 0 1 ): 
+======================== NODE (0 0 0 1 ) INFO END====================================
+======================== NODE (0 0 0 ) INFO END====================================
+
+  Trying to embed: 
+(((Check_3_0 (1 2 ))2 ))
+ and 
+(((Check_3_0 (1 2 ))4 ))
+(call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))
+ and 
+(call ((Check_3_0 (1 2 ))4 )(args (arg (*(par e 5 ))(*(par e 2 )))))
+  EMBEDDING IS SUCCESSFUL.
+Depth is 0 
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Driving GENERALIZING negative clash No. 16 
+Testing negative block in No.16 : 
+  Narrowings: (assign (par e 5 )((par e 17 )ip(par e 18 )))
+  Assignments: (assign (var e Neg1 )((par e 17 )))(assign (var e Neg2 )((par e 18 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 17 )ip(par e 18 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 17 )ip(par e 18 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Normalizing negative clash No. 17 
+(((par t 1 ))to (i))(((par e 17 )ip(par e 18 ))to (p(var e Neg2 )))
+New negative: (OR (T)(((par t 1 ))to (i))(((par e 17 ))to (p(var e Neg8 ))))
+Normalizing negative clash No. 18 
+(((par e 17 )ip(par e 18 ))to ((var e Neg3 )ip(var e Neg4 )))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 17 )((par e 20 )ip(par e 21 ))))((assign (var e Neg3 )((par e 20 ))))((((par e 21 )ip(par e 18 ))to ((var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 17 )((par e 20 )i)))((assign (var e Neg3 )((par e 20 ))))(((ip(par e 18 ))to (p(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 17 )((par e 20 ))))((assign (var e Neg3 )((par e 20 ))))(((ip(par e 18 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg3 )((par e 17 )(var e 9 ))))(((ip(par e 18 ))to ((var e 9 )ip(var e Neg4 )))(Delayed ))(T))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 9 )())(assign (var e Neg3 )((par e 17 ))))(((ip(par e 18 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 9 )(i(var e 14 )))(assign (var e Neg3 )((par e 17 )i(var e 14 ))))(((p(par e 18 ))to ((var e 14 )ip(var e Neg4 )))(Delayed ))(T))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 14 )())(assign (var e 9 )(i))(assign (var e Neg3 )((par e 17 )i)))(((p(par e 18 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 14 )(p(var e 15 )))(assign (var e 9 )(ip(var e 15 )))(assign (var e Neg3 )((par e 17 )ip(var e 15 ))))((((par e 18 ))to ((var e 15 )ip(var e Neg4 )))(Delayed ))(T))
+***************** END OF NEGATIVE TESTING PRTC No.16   *************************
+
+    PRTC No.16  FAILED in negative block:
+  Narrowings: (assign (par e 5 )((par e 17 )ip(par e 18 )))
+  Assignments: (assign (var e Neg1 )((par e 17 )))(assign (var e Neg2 )((par e 18 )))
+  Equations Negative: (OR (T)(((par t 1 ))to (i))(((par e 17 )ip(par e 18 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 17 )ip(par e 18 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg1 )ip(var e Neg2 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg1 )ip(var e Neg2 ))))
+Normalizing negative clash No. 19 
+(((par e 5 ))to ((var e Neg1 )ip(var e Neg2 )))
+New negative: (OR (D)(((par e 5 ))to ((var e Neg16 )ip(var e Neg17 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 1 ))to (i))(((par e 5 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 5 ))to ((var e Neg1 )ip(var e Neg2 ))))
+
+  Equations are preserved:
+
+  Inequalities are preserved:
+    (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
+==============================================================================
+           LET NODE (0 0 0 )
+  Let information: (Let ((0 0 0 1 )(assign (par e 1 )((par e 5 ))))In ((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
+  Restrictions: (assign (par e 1 )((par t 1 )(par e 5 )))
+
+  Configuration: 
+  Stack: 
 ======================== NODE (0 0 0 ) INFO END====================================
 
 ==================================================================================
          SIMPLE NODE (0 ) with status: Driven 
   Restrictions: 
 
-  Configuration: (call ((Ital-Engl (1 ))1 )(args (arg cavallo)))
+  Configuration: (call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
   Stack: 
-      (assign (var l (0 ))((call ((Ital-Engl (1 ))1 )(args (arg cavallo)))))
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
 
   Children of (0 ): 
 ==================================================================================
          SIMPLE NODE (0 0 ) with status: Driven 
-  Restrictions: Always 
+  Restrictions: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
 
-  Configuration: (call (Trans 2 )(args (arg (*cavallo)(call ((Table (1 ))3 )(args (arg ))))))
+  Configuration: (call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))
   Stack: 
-      (assign (var l (1 ))((call ((Table (1 ))3 )(args (arg )))))
-      (assign (var l (0 ))((call (Trans 2 )(args (arg (*cavallo)(var l (1 )))))))
+      (assign (var l (0 ))((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
 
   Children of (0 0 ): 
-==================================================================================
-         SIMPLE NODE (0 0 0 ) with status: Driven 
-  Restrictions: Always 
+==============================================================================
+           LET NODE (0 0 0 )
+  Let information: (Let ((0 0 0 1 )(assign (par e 1 )((par e 5 ))))In ((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
+  Restrictions: (assign (par e 1 )((par t 1 )(par e 5 )))
 
-  Configuration: (call ((Trans (1 ))2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))
+  Configuration: 
   Stack: 
-      (assign (var l (0 ))((call ((Trans (1 ))2 )(args (arg (*cavallo)(*(*cane)dog)(*(*gatto)cat)(*(*cavallo)horse)(*(*rana)frog)(*(*porco)pig))))))
-
-  Children of (0 0 0 ): 
-==================================================================================
-         SIMPLE NODE (0 0 0 0 ) with status: Finished 
-  Restrictions: Always 
-
-  Configuration: horse
-  Stack: 
-      (assign (var l (0 ))(horse))
-
-  Children of (0 0 0 0 ): 
-======================== NODE (0 0 0 0 ) INFO END====================================
 ======================== NODE (0 0 0 ) INFO END====================================
 ======================== NODE (0 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 1 ) with status: Undriven 
+  Restrictions: Always 
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Configuration: (call (Check_13_0 3 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 3 )(args (arg (par e x1 ))))))
+
+  Children of (0 1 ): 
+======================== NODE (0 1 ) INFO END====================================
 ======================== NODE (0 ) INFO END====================================
 
-Renamed :(0 0 ) to (0 )
-Renamed :(0 0 ) to (0 )
-Renamed :(0 0 ) to (0 )
+New Clash: No 20 
+  Clash: (((par e 2 ))to ((var e x1 )ip(var e x2 )))
+
+
+Testing negative block in No.20 : 
+  Narrowings: (assign (par e 2 )((par e 26 )ip(par e 27 )))
+  Assignments: (assign (var e x1 )((par e 26 )))(assign (var e x2 )((par e 27 )))
+
+
+***************** END OF NEGATIVE TESTING No.20  *************************
+
+    PRTC No.20  Class C IS COMPLETED:
+  Narrowings: (assign (par e 2 )((par e 26 )ip(par e 27 )))
+  Assignments: (assign (var e x1 )((par e 26 )))(assign (var e x2 )((par e 27 )))
+
+ to
+  Narrowings: (assign (par e 2 )((par e 26 )ip(par e 27 )))
+  Assignments: (assign (var e x1 )((par e 26 )))(assign (var e x2 )((par e 27 )))
+
+---------------------------------------------------------------------------
+
+Normalizing negative clash No. 21 
+(((par e 26 )i)to ((var e Neg1 )ip))
+New Clash: No 22 
+  Clash: (((par e 2 ))to ((var e x1 )))
+  Equations Negative: (OR (D)(((par e 2 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Testing negative block in No.22 : 
+  Narrowings: 
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(((par e 2 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Normalizing negative clash No. 23 
+(((par e 2 ))to ((var e Neg3 )ip(var e Neg4 )))
+New negative: (OR (D)(((par e 2 ))to ((var e Neg5 )ip(var e Neg6 ))))
+***************** END OF NEGATIVE TESTING No.22  *************************
+
+    PRTC No.22  Class C IS COMPLETED:
+  Narrowings: 
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(((par e 2 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+ to
+  Narrowings: 
+  Assignments: (assign (var e x1 )((par e 2 )))
+  Equations Negative: (OR (D)(((par e 2 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+---------------------------------------------------------------------------
+
+==================================================================================
+         SIMPLE NODE (0 0 1 ) with status: ReadyForGenCheck 
+  Restrictions: (assign (par e 1 )())
+
+  Configuration: (call ((Check_0 (1 2 ))5 )(args (arg (par e 2 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))5 )(args (arg (par e 2 ))))))
+
+  Children of (0 0 1 ): 
+==================================================================================
+         SIMPLE NODE (0 0 1 0 ) with status: Undriven 
+  Restrictions: (assign (par e 2 )((par e 26 )ip(par e 27 )))
+  Equations Negative: (OR (D)(((par e 26 ))to ((var e Neg1 )ip(var e Neg2 ))))
+
+  Configuration: (call (Check_3_0 8 )(args (arg (*(par e 26 ))(*(par e 27 )))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_3_0 8 )(args (arg (*(par e 26 ))(*(par e 27 )))))))
+
+  Children of (0 0 1 0 ): 
+======================== NODE (0 0 1 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 0 1 1 ) with status: Undriven 
+  Restrictions: Always 
+  Equations Negative: (OR (D)(((par e 2 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Configuration: (call (Check_13_0 9 )(args (arg (par e 2 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 9 )(args (arg (par e 2 ))))))
+
+  Children of (0 0 1 1 ): 
+======================== NODE (0 0 1 1 ) INFO END====================================
+======================== NODE (0 0 1 ) INFO END====================================
+
+  Trying to embed: 
+(((Check_3_0 (1 2 ))2 ))
+ and 
+(((Check_0 (1 2 ))5 ))
+  Trying to embed: 
+(((Check_0 (1 2 ))1 ))
+ and 
+(((Check_0 (1 2 ))5 ))
+(call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
+ and 
+(call ((Check_0 (1 2 ))5 )(args (arg (par e 2 ))))
+  EMBEDDING IS SUCCESSFUL.
+Depth is 0 
+
+  Equations are preserved:
+
+  Inequalities are preserved:
+==============================================================================
+           LET NODE (0 0 1 )
+  Let information: (Let ((0 0 1 1 )(assign (par e x1 )((par e 2 ))))In ((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
+  Restrictions: (assign (par e 1 )())
+
+  Configuration: 
+  Stack: 
+======================== NODE (0 0 1 ) INFO END====================================
+
+==================================================================================
+         SIMPLE NODE (0 ) with status: Driven 
+  Restrictions: 
+
+  Configuration: (call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
+
+  Children of (0 ): 
+==================================================================================
+         SIMPLE NODE (0 0 ) with status: Driven 
+  Restrictions: (assign (par e x1 )((par e 1 )ip(par e 2 )))
+  Equations Negative: (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 ))))
+
+  Configuration: (call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))
+
+  Children of (0 0 ): 
+Node (0 0 0 ) is a root of a subtree.
+======================== NODE (0 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 1 ) with status: Undriven 
+  Restrictions: Always 
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Configuration: (call (Check_13_0 3 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 3 )(args (arg (par e x1 ))))))
+
+  Children of (0 1 ): 
+======================== NODE (0 1 ) INFO END====================================
+======================== NODE (0 ) INFO END====================================
+
+New Clash: No 24 
+  Clash: (((par e x1 ))to ())
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+
+Testing negative block in No.24 : 
+  Narrowings: (assign (par e x1 )())
+  Assignments: 
+  Equations Negative: (OR (D)(()to ((var e Neg5 )ip(var e Neg6 ))))
+
+
+Normalizing negative clash No. 25 
+(()to ((var e Neg5 )ip(var e Neg6 )))
+***************** END OF NEGATIVE TESTING No.24  *************************
+
+    PRTC No.24  Class C IS COMPLETED:
+  Narrowings: (assign (par e x1 )())
+  Assignments: 
+  Equations Negative: (OR (D)(()to ((var e Neg5 )ip(var e Neg6 ))))
+
+ to
+  Narrowings: (assign (par e x1 )())
+  Assignments: 
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+    (OR (T)(((par e x1 ))to ()))
+Screened inequalities:
+
+    (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+    (OR (T)(((par e x1 ))to ()))
+New Clash: No 26 
+  Clash: (((par e x1 ))to ((var t y1 )(var e x1 )))
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+    (OR (T)(((par e x1 ))to ()))
+
+
+Testing negative block in No.26 : 
+  Narrowings: (assign (par e x1 )((par t 3 )(par e 32 )))
+  Assignments: (assign (var t y1 )((par t 3 )))(assign (var e x1 )((par e 32 )))
+  Equations Negative: (OR (D)(((par t 3 )(par e 32 ))to ((var e Neg5 )ip(var e Neg6 ))))
+    (OR (T)(((par t 3 )(par e 32 ))to ()))
+
+
+Normalizing negative clash No. 27 
+(((par t 3 )(par e 32 ))to ((var e Neg5 )ip(var e Neg6 )))
+(((New (Desired ))(Grammar )(Negative (OR (T)(((par t 3 )(par e 32 ))to ())))(Numeric )(Generic ))()((assign (var e Neg5 )()))((((par t 3 )(par e 32 ))to (ip(var e Neg6 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative (OR (T)(((par t 3 )(par e 32 ))to ())))(Numeric )(Generic ))()((assign (var e Neg5 )((par t 3 )(var e 1 ))))((((par e 32 ))to ((var e 1 )ip(var e Neg6 )))(Delayed ))(T))
+New negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+New negative: (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Normalizing negative clash No. 28 
+(((par t 3 )(par e 32 ))to ())
+Splitting...
+(AreEqual (T)((weval t 4 )(weval e 31 ))())
+New common data:
+(AreEqual (N)((1 Const )(1 (weval e 31 )))((weval t 4 )(weval e 31 ))((0 Const ))())
+    PRTC No.28  FAILED in equation block:
+  Clash: 
+  Equations New: (AreEqual (T)((par t 3 )(par e 32 ))())
+    (Desired )
+
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+***************** END OF NEGATIVE TESTING No.26  *************************
+
+    PRTC No.26  Class C IS COMPLETED:
+  Narrowings: (assign (par e x1 )((par t 3 )(par e 32 )))
+  Assignments: (assign (var t y1 )((par t 3 )))(assign (var e x1 )((par e 32 )))
+  Equations Negative: (OR (D)(((par t 3 )(par e 32 ))to ((var e Neg5 )ip(var e Neg6 ))))
+    (OR (T)(((par t 3 )(par e 32 ))to ()))
+
+ to
+  Narrowings: (assign (par e x1 )((par t 3 )(par e 32 )))
+  Assignments: (assign (var t y1 )((par t 3 )))(assign (var e x1 )((par e 32 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+---------------------------------------------------------------------------
+
+==================================================================================
+         SIMPLE NODE (0 1 ) with status: ReadyForGenCheck 
+  Restrictions: Always 
+  Equations Negative: (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Configuration: (call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 ))))))
+
+  Children of (0 1 ): 
+==================================================================================
+         SIMPLE NODE (0 1 0 ) with status: Undriven 
+  Restrictions: (assign (par e x1 )())
+
+  Configuration: T
+  Stack: 
+      (assign (var l (0 ))(T))
+
+  Children of (0 1 0 ): 
+======================== NODE (0 1 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 1 1 ) with status: Undriven 
+  Restrictions: (assign (par e x1 )((par t 3 )(par e 32 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+  Configuration: (call (Check_13_0 10 )(args (arg (par e 32 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 10 )(args (arg (par e 32 ))))))
+
+  Children of (0 1 1 ): 
+======================== NODE (0 1 1 ) INFO END====================================
+======================== NODE (0 1 ) INFO END====================================
+
+  Trying to embed: 
+(((Check_0 (1 2 ))1 ))
+ and 
+(((Check_13_0 (1 2 ))3 ))
+==================================================================================
+         SIMPLE NODE (0 ) with status: Driven 
+  Restrictions: 
+
+  Configuration: (call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
+
+  Children of (0 ): 
+Node (0 0 ) is a root of a subtree.
+======================== NODE (0 ) INFO END====================================
+
+New Clash: No 29 
+  Clash: (((par e 32 ))to ())
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Testing negative block in No.29 : 
+  Narrowings: (assign (par e 32 )())
+  Assignments: 
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(()to (p(var e Neg2 ))))
+    (OR (D)(()to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Normalizing negative clash No. 30 
+(((par t 3 ))to (i))(()to (p(var e Neg2 )))
+Normalizing negative clash No. 31 
+(()to ((var e Neg3 )ip(var e Neg4 )))
+***************** END OF NEGATIVE TESTING No.29  *************************
+
+    PRTC No.29  Class C IS COMPLETED:
+  Narrowings: (assign (par e 32 )())
+  Assignments: 
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(()to (p(var e Neg2 ))))
+    (OR (D)(()to ((var e Neg3 )ip(var e Neg4 ))))
+
+ to
+  Narrowings: (assign (par e 32 )())
+  Assignments: 
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 32 ))to ()))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 32 ))to ()))
+New Clash: No 32 
+  Clash: (((par e 32 ))to ((var t y1 )(var e x1 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par e 32 ))to ()))
+
+
+Testing negative block in No.32 : 
+  Narrowings: (assign (par e 32 )((par t 4 )(par e 37 )))
+  Assignments: (assign (var t y1 )((par t 4 )))(assign (var e x1 )((par e 37 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par t 4 )(par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par t 4 )(par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par t 4 )(par e 37 ))to ()))
+
+
+ToScreen inequalities:
+
+    (OR (D)(((par t 4 )(par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par t 4 )(par e 37 ))to ()))
+Screened inequalities:
+
+    (OR (D)(((par t 4 )(par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par t 4 )(par e 37 ))to ()))
+Normalizing negative clash No. 33 
+(((par t 3 ))to (i))(((par t 4 )(par e 37 ))to (p(var e Neg2 )))
+New negative: (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+Normalizing negative clash No. 34 
+(((par t 4 )(par e 37 ))to ((var e Neg3 )ip(var e Neg4 )))
+(((New (Desired ))(Grammar )(Negative (OR (T)(((par t 4 )(par e 37 ))to ())))(Numeric )(Generic ))()((assign (var e Neg3 )()))((((par t 4 )(par e 37 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative (OR (T)(((par t 4 )(par e 37 ))to ())))(Numeric )(Generic ))()((assign (var e Neg3 )((par t 4 )(var e 1 ))))((((par e 37 ))to ((var e 1 )ip(var e Neg4 )))(Delayed ))(T))
+New negative: (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+New negative: (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Normalizing negative clash No. 35 
+(((par t 4 )(par e 37 ))to ())
+Splitting...
+(AreEqual (T)((weval t 6 )(weval e 36 ))())
+New common data:
+(AreEqual (N)((1 Const )(1 (weval e 36 )))((weval t 6 )(weval e 36 ))((0 Const ))())
+    PRTC No.35  FAILED in equation block:
+  Clash: 
+  Equations New: (AreEqual (T)((par t 4 )(par e 37 ))())
+    (Desired )
+
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+***************** END OF NEGATIVE TESTING No.32  *************************
+
+    PRTC No.32  Class C IS COMPLETED:
+  Narrowings: (assign (par e 32 )((par t 4 )(par e 37 )))
+  Assignments: (assign (var t y1 )((par t 4 )))(assign (var e x1 )((par e 37 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par t 4 )(par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par t 4 )(par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (T)(((par t 4 )(par e 37 ))to ()))
+
+ to
+  Narrowings: (assign (par e 32 )((par t 4 )(par e 37 )))
+  Assignments: (assign (var t y1 )((par t 4 )))(assign (var e x1 )((par e 37 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+---------------------------------------------------------------------------
+
+==================================================================================
+         SIMPLE NODE (0 1 1 ) with status: ReadyForGenCheck 
+  Restrictions: (assign (par e x1 )((par t 3 )(par e 32 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+  Configuration: (call ((Check_13_0 (1 2 ))10 )(args (arg (par e 32 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_13_0 (1 2 ))10 )(args (arg (par e 32 ))))))
+
+  Children of (0 1 1 ): 
+==================================================================================
+         SIMPLE NODE (0 1 1 0 ) with status: Undriven 
+  Restrictions: (assign (par e 32 )())
+
+  Configuration: T
+  Stack: 
+      (assign (var l (0 ))(T))
+
+  Children of (0 1 1 0 ): 
+======================== NODE (0 1 1 0 ) INFO END====================================
+==================================================================================
+         SIMPLE NODE (0 1 1 1 ) with status: Undriven 
+  Restrictions: (assign (par e 32 )((par t 4 )(par e 37 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par t 4 ))to (p)))
+    (OR (T)(((par t 4 ))to (i))(((par e 37 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 37 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+  Configuration: (call (Check_13_0 11 )(args (arg (par e 37 ))))
+  Stack: 
+      (assign (var l (0 ))((call (Check_13_0 11 )(args (arg (par e 37 ))))))
+
+  Children of (0 1 1 1 ): 
+======================== NODE (0 1 1 1 ) INFO END====================================
+======================== NODE (0 1 1 ) INFO END====================================
+
+  Trying to embed: 
+(((Check_13_0 (1 2 ))3 ))
+ and 
+(((Check_13_0 (1 2 ))10 ))
+(call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 ))))
+ and 
+(call ((Check_13_0 (1 2 ))10 )(args (arg (par e 32 ))))
+  EMBEDDING IS SUCCESSFUL.
+Depth is 0 
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+Driving GENERALIZING negative clash No. 36 
+Testing negative block in No.36 : 
+  Narrowings: (assign (par e 32 )((par e 44 )ip(par e 45 )))
+  Assignments: (assign (var e Neg5 )((par e 44 )))(assign (var e Neg6 )((par e 45 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 44 )ip(par e 45 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 44 )ip(par e 45 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+Normalizing negative clash No. 37 
+(((par t 3 ))to (i))(((par e 44 )ip(par e 45 ))to (p(var e Neg2 )))
+New negative: (OR (T)(((par t 3 ))to (i))(((par e 44 ))to (p(var e Neg6 ))))
+Normalizing negative clash No. 38 
+(((par e 44 )ip(par e 45 ))to ((var e Neg3 )ip(var e Neg4 )))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 44 )((par e 47 )ip(par e 48 ))))((assign (var e Neg3 )((par e 47 ))))((((par e 48 )ip(par e 45 ))to ((var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 44 )((par e 47 )i)))((assign (var e Neg3 )((par e 47 ))))(((ip(par e 45 ))to (p(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))((assign (par e 44 )((par e 47 ))))((assign (var e Neg3 )((par e 47 ))))(((ip(par e 45 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e Neg3 )((par e 44 )(var e 7 ))))(((ip(par e 45 ))to ((var e 7 )ip(var e Neg4 )))(Delayed ))(T))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 7 )())(assign (var e Neg3 )((par e 44 ))))(((ip(par e 45 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 7 )(i(var e 12 )))(assign (var e Neg3 )((par e 44 )i(var e 12 ))))(((p(par e 45 ))to ((var e 12 )ip(var e Neg4 )))(Delayed ))(T))
+(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 12 )())(assign (var e 7 )(i))(assign (var e Neg3 )((par e 44 )i)))(((p(par e 45 ))to (ip(var e Neg4 )))(Delayed ))(T))(((New (Desired ))(Grammar )(Negative )(Numeric )(Generic ))()((assign (var e 12 )(p(var e 13 )))(assign (var e 7 )(ip(var e 13 )))(assign (var e Neg3 )((par e 44 )ip(var e 13 ))))((((par e 45 ))to ((var e 13 )ip(var e Neg4 )))(Delayed ))(T))
+***************** END OF NEGATIVE TESTING PRTC No.36   *************************
+
+    PRTC No.36  FAILED in negative block:
+  Narrowings: (assign (par e 32 )((par e 44 )ip(par e 45 )))
+  Assignments: (assign (var e Neg5 )((par e 44 )))(assign (var e Neg6 )((par e 45 )))
+  Equations Negative: (OR (T)(((par t 3 ))to (i))(((par e 44 )ip(par e 45 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 44 )ip(par e 45 ))to ((var e Neg3 )ip(var e Neg4 ))))
+
+
+---------------------------------------------------------------------------
+
+ToScreen inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg3 )ip(var e Neg4 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg5 )ip(var e Neg6 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg5 )ip(var e Neg6 ))))
+Normalizing negative clash No. 39 
+(((par e 32 ))to ((var e Neg5 )ip(var e Neg6 )))
+New negative: (OR (D)(((par e 32 ))to ((var e Neg14 )ip(var e Neg15 ))))
+Screened inequalities:
+
+    (OR (T)(((par t 3 ))to (i))(((par e 32 ))to (p(var e Neg2 ))))
+    (OR (D)(((par e 32 ))to ((var e Neg5 )ip(var e Neg6 ))))
+
+  Equations are preserved:
+
+  Inequalities are preserved:
+    (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 ))))
+==============================================================================
+           LET NODE (0 1 1 )
+  Let information: (Let ((0 1 1 1 )(assign (par e x1 )((par e 32 ))))In ((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 ))))))
+  Restrictions: (assign (par e x1 )((par t 3 )(par e 32 )))
+
+  Configuration: 
+  Stack: 
+======================== NODE (0 1 1 ) INFO END====================================
+
+==================================================================================
+         SIMPLE NODE (0 ) with status: Driven 
+  Restrictions: 
+
+  Configuration: (call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))
+  Stack: 
+      (assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))
+
+  Children of (0 ): 
+Node (0 0 ) is a root of a subtree.
+======================== NODE (0 ) INFO END====================================
+
 
 Roots of the functions:
+((0 0 )((Check_3_0 (1 2 ))0 )(2 )((par e 1 )(par e 2 )))((0 )((Check_0 (1 2 ))0 )(1 )((par e x1 )))((0 1 )((Check_13_0 (1 2 ))0 )(1 )((par e x1 )))
 
-
-(Node Finished (0 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()(horse)(((assign (var l (0 ))(horse))))))
+(Node Finished (0 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 )))))(((assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 )))))))))(Children (Node Finished (0 0 )(((assign (par e x1 )((par e 1 )ip(par e 2 ))))((New )(Grammar )(Negative (OR (D)(((par e 1 ))to ((var e Neg1 )ip(var e Neg2 )))))(Numeric )(Generic ))()((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 ))))))(((assign (var l (0 ))((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 ))))))))))(Children (Node Finished (0 0 0 )(((assign (par e 1 )((par t 1 )(par e 5 ))))((New )(Grammar )(Negative )(Numeric )(Generic ))((Let ((0 0 0 1 )(assign (par e 1 )((par e 5 ))))In ((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 ))))))))()())(Children (Node (Looped To (0 0 )With (assign (par e 1 )((par e 5 ))))(0 0 0 0 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 ))))))(((assign (var l (0 ))((call ((Check_3_0 (1 2 ))2 )(args (arg (*(par e 1 ))(*(par e 2 )))))))))))(Node Finished (0 0 0 1 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((par e 5 ))(((assign (var l (0 ))((par e 5 )))))))))(Node Finished (0 0 1 )(((assign (par e 1 )()))((New )(Grammar )(Negative )(Numeric )(Generic ))((Let ((0 0 1 1 )(assign (par e x1 )((par e 2 ))))In ((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 )))))))()())(Children (Node (Looped To (0 )With (assign (par e x1 )((par e 2 ))))(0 0 1 0 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 )))))(((assign (var l (0 ))((call ((Check_0 (1 2 ))1 )(args (arg (par e x1 ))))))))))(Node Finished (0 0 1 1 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((par e 2 ))(((assign (var l (0 ))((par e 2 )))))))))))(Node Finished (0 1 )((Always )((New )(Grammar )(Negative (OR (D)(((par e x1 ))to ((var e Neg5 )ip(var e Neg6 )))))(Numeric )(Generic ))()((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 )))))(((assign (var l (0 ))((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 )))))))))(Children (Node Finished (0 1 0 )(((assign (par e x1 )()))((New )(Grammar )(Negative )(Numeric )(Generic ))()(T)(((assign (var l (0 ))(T))))))(Node Finished (0 1 1 )(((assign (par e x1 )((par t 3 )(par e 32 ))))((New )(Grammar )(Negative )(Numeric )(Generic ))((Let ((0 1 1 1 )(assign (par e x1 )((par e 32 ))))In ((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 )))))))()())(Children (Node (Looped To (0 1 )With (assign (par e x1 )((par e 32 ))))(0 1 1 0 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 )))))(((assign (var l (0 ))((call ((Check_13_0 (1 2 ))3 )(args (arg (par e x1 ))))))))))(Node Finished (0 1 1 1 )(()((New )(Grammar )(Negative )(Numeric )(Generic ))()((par e 32 ))(((assign (var l (0 ))((par e 32 )))))))))))))
+Successors are raised:
+(Node (Function ((Check_0 (1 2 ))0 )Merged With ((par e x1 ))And Eigen ((par e x1 )))(0 )(Children (Node Expression (0 0 )(((assign (par e x1 )((par e 1 )ip(par e 2 ))))((call ((Check_3_0 (1 2 ))0 )(args (arg (*(par e 1 ))(*(par e 2 ))))))))(Node Expression (0 1 )((Always )((call ((Check_13_0 (1 2 ))0 )(args (arg (par e x1 )))))))))
+Successors are raised:
+(Node (Function ((Check_3_0 (1 2 ))0 )Merged With ((par e 1 )(par e 2 ))And Eigen ((par e 1 )))(0 0 )(Children (Node Expression (0 0 0 )(((assign (par e 1 )((par t 1 )(par e 5 ))))((call ((Check_3_0 (1 2 ))0 )(args (arg (*(par e 5 ))(*(par e 2 ))))))))(Node Expression (0 0 1 )(((assign (par e 1 )()))((call ((Check_0 (1 2 ))0 )(args (arg (par e 2 )))))))))
+Successors are raised:
+(Node (Function ((Check_13_0 (1 2 ))0 )Merged With ((par e x1 ))And Eigen ((par e x1 )))(0 1 )(Children (Node Expression (0 1 0 )(((assign (par e x1 )()))(T)))(Node Expression (0 1 1 )(((assign (par e x1 )((par t 3 )(par e 32 ))))((call ((Check_13_0 (1 2 ))0 )(args (arg (par e 32 )))))))))

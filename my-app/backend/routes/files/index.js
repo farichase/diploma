@@ -42,9 +42,22 @@ router.post('/graph', async (req, res) => {
 router.post('/loadgraph', async (req, res) => {
   // console.log(`${__dirname}/../../../graphsload.sh`)
   exec(`${__dirname}/graphsload.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
-    // console.log(error)
-    // console.log(stderr)
-    // console.log(stdout)
+    if (error) {
+      res.json({
+        data: "It is impossible to build a graph"
+      })
+      return;
+    }
+    if (stderr) {
+      res.json({
+        data: "It is impossible to build a graph"
+      })
+      return;
+    }
+    res.json({
+      data: "stdout"
+    })
+    return;
   })
 });
 
