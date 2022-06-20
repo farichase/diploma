@@ -4,18 +4,25 @@ $ENTRY Go {
 
 
 Check_0 {
- e.x1 'ip' e.x2 =  <Check_3_0 (e.x1) (e.x2)>;
- e.x1 =  <Check_13_0 e.x1>;
+ 'AB' e.x1 =  <Check_0 e.x1>;
+ e.x1 t.y1 'AB' e.x2 =  <Check_1 (e.x1) t.y1 (e.x2)>;
+ e.x1 =  'T';
 }
 
 
-Check_3_0 {
- (t.y1 e.x1) (e.x2) =  <Check_3_0 (e.x1) (e.x2)>;
- () (e.x1) =  <Check_0 e.x1>;
+Check_1 {
+ () 'A' ('B' e.x1) =  <Check_0 e.x1>;
+ (e.x1 t.y1) 'A' ('B' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
+ (e.x1) t.y1 ('AB' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
+ (e.x1) t.y1 (e.x2 t.y2 'AB' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
+ (e.x1) t.y1 (e.x2) =  'T';
 }
 
 
-Check_13_0 {
- =  'T';
- t.y1 e.x1 =  <Check_13_0 e.x1>;
+Check_2 {
+ (e.x1) t.y1 (e.x2 t.y2) 'A' ('B' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
+ (e.x1) t.y1 () 'A' ('B' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
+ (e.x1) t.y1 (e.x2) t.y2 ('AB' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
+ (e.x1) t.y1 (e.x2) t.y2 (e.x3 t.y3 'AB' e.x4) =  <Check_2 (e.x1) t.y1 (e.x2 t.y2 e.x3) t.y3 (e.x4)>;
+ (e.x1) t.y1 (e.x2) t.y2 (e.x3) =  'T';
 }

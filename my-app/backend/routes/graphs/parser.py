@@ -1,3 +1,5 @@
+import graphviz
+
 from lexer import tokens
 import ply.yacc as yacc
 import logging
@@ -73,6 +75,7 @@ class Node(GraphNode):
                 # dot.edge(self.node_id, exp.node_id)
                 exp.compos()
 
+        restrict = []
         for node in self.nodes:
             if not isinstance(node, (str, Loop)):
                 node.compos()
@@ -81,18 +84,28 @@ class Node(GraphNode):
                 for i in node.multi_expression:
                     a = i.view if not isinstance(i, str) else i
                     label += a
+
+                if label:
+                    for r in restrict:
+                        label += f';\n¬{r}'
+
+                    restrict.append(label)
+
                 dot.edge(self.node_id, node.node_id, label=label)
 
 
 
-        f_nodes = [el for el in self.nodes if isinstance(el, Node)]
-        for num in range(len(f_nodes)):
-            if num + 1 < len(f_nodes):
-                dot.edge(f_nodes[num].node_id, f_nodes[num + 1].node_id, color='white')
+        # f_nodes = [el for el in self.nodes if isinstance(el, Node)]
+        # for num in range(len(f_nodes)):
+        #     if num + 1 < len(f_nodes):
+        #         dot.edge(f_nodes[num].node_id, f_nodes[num + 1].node_id, color='white')
 
         text = ''
+        text_html = ''
         if self.node_data.__dict__.get('expr1'):
-            text = f'let {self.node_data.assignment.view} in {self.node_data.expr1.view}'
+            text = f'''let {self.node_data.assignment.view} in {self.node_data.expr1.view}'''
+            text_html = f'''<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let {self.node_data.assignment.view}</TD></TR><TR><TD ALIGN="LEFT">    in {self.node_data.expr1.view}</TD></TR></TABLE>>'''
+            # print(text_html)
             self.view = text
         elif self.node_data.__dict__.get('stackexpr1'):
             stackexpr1 = self.node_data.stackexpr1.view if not isinstance(self.node_data.stackexpr1, str) else self.node_data.stackexpr1
@@ -101,7 +114,7 @@ class Node(GraphNode):
         else:
             text = 'NODE ERROR'
 
-        dot.node(self.node_id, text)
+        dot.node(self.node_id, label=text_html if text_html else text)
 
 
 class Assignment(GraphNode):
@@ -160,7 +173,7 @@ class Expr(GraphNode):
         elif self.conf == 'call':
             expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
             expr2 = self.expr2.view if not isinstance(self.expr2, str) else self.expr2
-            self.view = f'<{self.name} {expr1}> {expr2}'
+            self.view = f'⟨{self.name} {expr1}⟩{expr2}'
 
         if self.show:
             dot.node(self.node_id, self.view)
@@ -207,10 +220,10 @@ class StackExpr(GraphNode):
         elif self.conf == 'call':
             stackexpr1 = self.stackexpr1.view if not isinstance(self.stackexpr1, str) else self.stackexpr1
             stackexpr2 = self.stackexpr2.view if not isinstance(self.stackexpr2, str) else self.stackexpr2
-            self.view = f'<{self.name} {stackexpr1}> {stackexpr2}'
+            self.view = f'⟨{self.name} {stackexpr1}⟩ {stackexpr2}'
 
         elif self.conf == 'topcall':
-            self.view = f'<{self.name} {self.expr1.view}> {self.stackexpr1.view}'
+            self.view = f'⟨{self.name} {self.expr1.view}⟩ {self.stackexpr1.view}'
 
         if self.show:
             dot.node(self.node_id, self.view)
