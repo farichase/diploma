@@ -1,0 +1,13 @@
+$ENTRY Go {
+	e.x = <Check <F e.x>>;
+}
+
+F {
+	 = ;
+	t.x e.y = 'A' <F e.y>;
+}
+
+Check {
+	e.X 'B' = 'F';
+	e.Z = 'T';
+}

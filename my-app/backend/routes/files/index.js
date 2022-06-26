@@ -18,6 +18,8 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/graph', async (req, res) => {
+  // console.log(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./graphs.sh`)
+
   exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./graphs.sh`, { shell: "/bin/bash" }, (error, stdout, stderr) => {
          
     if (error) {
@@ -93,7 +95,7 @@ router.post('/transform', async (req, res) => {
     })
 
   } else if (compilerVersion === 'MSCP-A' && fileFormat === 'ref') {
-    console.log(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`)
+    // console.log(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`)
     exec(`docker run --rm -v ${__dirname}/../../../cont:/backend/cont my_image ./mscp.sh`, { shell: "/bin/bash", timeout: 2000 }, (error, stdout, stderr) => {
       if (error) {
         res.json({

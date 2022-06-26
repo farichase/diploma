@@ -11,8 +11,6 @@ from abc import ABC, abstractmethod
 
 loops = []
 nodes = []
-links = []
-
 
 
 special_names = {
@@ -37,20 +35,23 @@ class GraphNode(ABC):
 
     def compos(self):
         for child in self.children:
-            links.append((self.node_id, child.node_id))
+            dot.edge(self.node_id, child.node_id)
             child.compos()
 
         if hasattr(self, 'nodes'):
             for node in self.nodes:
                 if not isinstance(node, str):
-                    links.append((self.node_id, node.node_id))
+                    dot.edge(self.node_id, node.node_id)
                     node.compos()
 
         if hasattr(self, 'expression'):
             for exp in self.expression:
                 if not isinstance(exp, str):
-                    links.append((self.node_id, exp.node_id))
+                    dot.edge(self.node_id, exp.node_id)
                     exp.compos()
+
+        dot.node(self.node_id, str(self))
+
 
     def _parse_params(self, kwargs):
         self.children = [el for el in kwargs.values() if isinstance(el, GraphNode)]
@@ -66,11 +67,12 @@ class Node(GraphNode):
         for child in self.children:
             if child.show:
                 if child.show:
-                    links.append((self.node_id, child.node_id))
+                    dot.edge(self.node_id, child.node_id)
             child.compos()
 
         for exp in self.multi_expression:
             if not isinstance(exp, str):
+                # dot.edge(self.node_id, exp.node_id)
                 exp.compos()
 
         restrict = []
@@ -83,34 +85,36 @@ class Node(GraphNode):
                     a = i.view if not isinstance(i, str) else i
                     label += a
 
-                n_label = label
                 if label:
                     for r in restrict:
-                        left, right = r.split('→')
-                        n_label += f';\n{left + " ≠ " + right}'
+                        label += f';\n¬{r}'
 
                     restrict.append(label)
 
-                links.append((self.node_id, node.node_id, n_label))
-        print(restrict)
+                dot.edge(self.node_id, node.node_id, label=label)
 
-        self.text = ''
-        self.text_html = ''
 
+
+        # f_nodes = [el for el in self.nodes if isinstance(el, Node)]
+        # for num in range(len(f_nodes)):
+        #     if num + 1 < len(f_nodes):
+        #         dot.edge(f_nodes[num].node_id, f_nodes[num + 1].node_id, color='white')
+
+        text = ''
+        text_html = ''
         if self.node_data.__dict__.get('expr1'):
             text = f'''let {self.node_data.assignment.view} in {self.node_data.expr1.view}'''
             text_html = f'''<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let {self.node_data.assignment.view}</TD></TR><TR><TD ALIGN="LEFT">    in {self.node_data.expr1.view}</TD></TR></TABLE>>'''
-            self.text_html = text_html.replace('\u03B5', '')
+            # print(text_html)
             self.view = text
-
         elif self.node_data.__dict__.get('stackexpr1'):
             stackexpr1 = self.node_data.stackexpr1.view if not isinstance(self.node_data.stackexpr1, str) else self.node_data.stackexpr1
             text = f'{stackexpr1}'
-            if text != '\u03B5':
-                text = text.replace('\u03B5', '')
             self.view = text
         else:
             text = 'NODE ERROR'
+
+        dot.node(self.node_id, label=text_html if text_html else text)
 
 
 class Assignment(GraphNode):
@@ -121,8 +125,9 @@ class Assignment(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
+
 
         if self.conf == 'assign':
             param = self.param.view if not isinstance(self.param, str) else self.param
@@ -152,7 +157,7 @@ class Expr(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
 
         if self.conf == 'param':
@@ -183,8 +188,7 @@ class Param(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
-
+                dot.edge(self.node_id, child.node_id)
             child.compos()
 
         if self.show:
@@ -200,7 +204,7 @@ class StackExpr(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
 
         if self.conf == 'param':
@@ -233,7 +237,7 @@ class NodeData(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
 
             if self.conf == 'let' and isinstance(child, Assignment):
                 child.conf = 'nodeData_let'
@@ -250,8 +254,7 @@ class Constraints(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                # dot.edge(self.node_id, child.node_id)
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
         if self.show:
             dot.node(self.node_id, 'Constraints')
@@ -265,7 +268,7 @@ class Negative(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
         if self.show:
             dot.node(self.node_id, 'Negative')
@@ -279,7 +282,7 @@ class SimpleNegative(GraphNode):
     def compos(self):
         for child in self.children:
             if child.show:
-                links.append((self.node_id, child.node_id))
+                dot.edge(self.node_id, child.node_id)
             child.compos()
         if self.show:
             dot.node(self.node_id, 'SimpleNegative')
@@ -292,9 +295,11 @@ class Loop(GraphNode):
 
     def compos(self):
         for child in self.children:
-            links.append((self.node_id, child.node_id))
-
+            dot.edge(self.node_id, child.node_id)
             child.compos()
+
+        dot.node(self.node_id, 'Loop')
+
 
 class TreeWalker:
     def __init__(self, tree):
@@ -548,7 +553,9 @@ data = rdata.replace("Looped to", "---------").replace("Looped", "Finished").rep
 
 parser_res = build_tree(data)
 
+# print(parser_res.nodes)
 parser_res.compos()
+# parser_res.compos()
 
 for loop in loops:
     for node in nodes:
@@ -559,25 +566,10 @@ for loop in loops:
                 for i in nodes:
                     if i.name == loop.name:
                         if (loop.assignment.view):
-                            links.append((node_start, i.node_id, f'{loop.assignment.view}'))
+                            dot.edge(node_start, i.node_id, label=f'{loop.assignment.view}')
                         else:
-                            links.append((node_start, i.node_id, '\u03B5'))
+                            dot.edge(node_start, i.node_id, label='\u03B5')
 
-def node_comparator(node):
-    name = ''.join(node.name.split())
-    return len(name)
 
-nodes = sorted(nodes, key=node_comparator)
-
-for i in nodes:
-    dot.node(i.node_id, label=i.text_html if i.text_html else i.view)
-
-for link in links:
-    if len(link) == 2:
-        dot.edge(link[0], link[1])
-    else:
-        dot.edge(link[0], link[1], label=link[2])
-        
 dot.render(filename='img')
-
 # dot.view()

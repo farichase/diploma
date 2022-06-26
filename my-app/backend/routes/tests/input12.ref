@@ -1,0 +1,15 @@
+$ENTRY Go {
+	e.x = <Pal e.x 'AB' <Inv e.x>>;
+}
+
+Pal {
+	 = 'T';
+	t.y = 'T';
+	t.y e.x t.y = <Pal e.x>;
+	e.Z = 'F';
+}
+
+Inv {
+    = ;
+    t.y e.x = <Inv e.x> t.y;
+}

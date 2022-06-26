@@ -1,0 +1,33 @@
+// The Round Table
+digraph "round-table" {
+	"d6a3ba9b-d8a8-4080-897e-ebe0b633ed22" [label="⟨Check e.1 ip address ⟨ReplaceIp e.2 ε⟩ ε⟩ ε"]
+	"e5f017f4-c58e-4d6c-88d1-87948e0797a9" -> "d6a3ba9b-d8a8-4080-897e-ebe0b633ed22" [label=""]
+	"2b3dd2ba-3f7a-4116-a509-e21d99718c7a" [label="e.14 ε"]
+	"e5f017f4-c58e-4d6c-88d1-87948e0797a9" -> "2b3dd2ba-3f7a-4116-a509-e21d99718c7a" [label=""]
+	"e5f017f4-c58e-4d6c-88d1-87948e0797a9" [label=<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let (e.1 := e.14 ε) </TD></TR><TR><TD ALIGN="LEFT">    in ⟨Check e.1 ip address ⟨ReplaceIp e.2 ε⟩ε⟩ε</TD></TR></TABLE>>]
+	"2727b92f-5c45-4582-81b8-05ae2466714c" -> "e5f017f4-c58e-4d6c-88d1-87948e0797a9" [label="(e.1 → t.1 e.14 ε) "]
+	"e7d117e0-92c4-49c9-b759-45fa0e64adac" [label="⟨Check ⟨ReplaceIp e.p ε⟩ ε⟩ ε"]
+	"8a2548cd-b6cc-4e93-8c5f-8af868e81263" -> "e7d117e0-92c4-49c9-b759-45fa0e64adac" [label=""]
+	"2ad2c8b2-919d-4668-9239-1fbea023b9d6" [label="e.2 ε"]
+	"8a2548cd-b6cc-4e93-8c5f-8af868e81263" -> "2ad2c8b2-919d-4668-9239-1fbea023b9d6" [label=""]
+	"8a2548cd-b6cc-4e93-8c5f-8af868e81263" [label=<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let (e.p := e.2 ε) </TD></TR><TR><TD ALIGN="LEFT">    in ⟨Check ⟨ReplaceIp e.p ε⟩ε⟩ε</TD></TR></TABLE>>]
+	"2727b92f-5c45-4582-81b8-05ae2466714c" -> "8a2548cd-b6cc-4e93-8c5f-8af868e81263" [label="(e.1 → ε) ;
+¬(e.1 → t.1 e.14 ε) "]
+	"2727b92f-5c45-4582-81b8-05ae2466714c" [label="⟨Check e.1 ip address ⟨ReplaceIp e.2 ε⟩ ε⟩ ε"]
+	"d29d0008-0695-490a-8f6b-2efa3f9155d4" -> "2727b92f-5c45-4582-81b8-05ae2466714c" [label="(e.p → e.1 ip e.2 ε) "]
+	"0f3007d0-916d-4f3e-8bad-457a0dd02974" [label="T ε"]
+	"e381b151-bf24-45f4-96cf-71ff9095d887" -> "0f3007d0-916d-4f3e-8bad-457a0dd02974" [label="(e.p → ε) "]
+	"67d62436-904e-4aa0-a6ee-4f89b7bfc931" [label="⟨Check e.p ε⟩ ε"]
+	"2ad74ae9-0a20-4b1f-b771-c5ce5c4513de" -> "67d62436-904e-4aa0-a6ee-4f89b7bfc931" [label=""]
+	"adb833d5-cc6c-408e-bae0-7bd2b21b87e5" [label="e.53 ε"]
+	"2ad74ae9-0a20-4b1f-b771-c5ce5c4513de" -> "adb833d5-cc6c-408e-bae0-7bd2b21b87e5" [label=""]
+	"2ad74ae9-0a20-4b1f-b771-c5ce5c4513de" [label=<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let (e.p := e.53 ε) </TD></TR><TR><TD ALIGN="LEFT">    in ⟨Check e.p ε⟩ε</TD></TR></TABLE>>]
+	"e381b151-bf24-45f4-96cf-71ff9095d887" -> "2ad74ae9-0a20-4b1f-b771-c5ce5c4513de" [label="(e.p → t.3 e.53 ε) ;
+¬(e.p → ε) "]
+	"e381b151-bf24-45f4-96cf-71ff9095d887" [label="⟨Check e.p ε⟩ ε"]
+	"d29d0008-0695-490a-8f6b-2efa3f9155d4" -> "e381b151-bf24-45f4-96cf-71ff9095d887" [label=""]
+	"d29d0008-0695-490a-8f6b-2efa3f9155d4" [label="⟨Check ⟨ReplaceIp e.p ε⟩ ε⟩ ε"]
+	"d6a3ba9b-d8a8-4080-897e-ebe0b633ed22" -> "2727b92f-5c45-4582-81b8-05ae2466714c" [label="ε"]
+	"e7d117e0-92c4-49c9-b759-45fa0e64adac" -> "d29d0008-0695-490a-8f6b-2efa3f9155d4" [label="ε"]
+	"67d62436-904e-4aa0-a6ee-4f89b7bfc931" -> "e381b151-bf24-45f4-96cf-71ff9095d887" [label="ε"]
+}

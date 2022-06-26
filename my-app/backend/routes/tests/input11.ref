@@ -1,0 +1,15 @@
+$ENTRY Go {
+	 e.InitialString = <G <F e.InitialString>>;
+}
+
+F {
+	            = ;
+	'A' e.String = 'B'<F e.String>;	
+	s.NotA e.String = s.NotA <F e.String>;
+}
+
+G {
+	            = ;
+	'B' e.String  = 'C'<G e.String>;
+	s.NotB e.String = s.NotB <G e.String>;
+}

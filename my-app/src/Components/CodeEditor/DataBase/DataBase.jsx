@@ -40,6 +40,10 @@ const DataBase = ({changeValue}) => {
                             <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input7.ref</button>
                             <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input8.ref</button>
                             <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input9.ref</button>
+                            <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input10.ref</button>
+                            <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input11.ref</button>
+                            <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input12.ref</button>
+                            <button className="btn" onClick={(e) => loadFile(e.target.innerText)}>input13.ref</button>
 
                             <button className="openButton" onClick={closeForm}>Close</button>
                         </div>
