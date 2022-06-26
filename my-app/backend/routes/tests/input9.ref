@@ -1,28 +1,16 @@
 $ENTRY Go {
- e.x1 =  <Check_0 e.x1>;
+	 (e.x) e.y = <Prefix (e.x) <Concat (e.x) e.y>>;
 }
 
-
-Check_0 {
- 'AB' e.x1 =  <Check_0 e.x1>;
- e.x1 t.y1 'AB' e.x2 =  <Check_1 (e.x1) t.y1 (e.x2)>;
- e.x1 =  'T';
+Prefix {
+	( ) e.x = 'T';
+	(t.y e.x1) t.y e.x2 = <Prefix (e.x1) e.x2>;
+	('A' e.x1) 'B' e.x2 = 'F';
+	('B' e.x1) 'A' e.x2 = 'F';
+	(t.y e.x) = 'F';
 }
 
-
-Check_1 {
- () 'A' ('B' e.x1) =  <Check_0 e.x1>;
- (e.x1 t.y1) 'A' ('B' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
- (e.x1) t.y1 ('AB' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
- (e.x1) t.y1 (e.x2 t.y2 'AB' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
- (e.x1) t.y1 (e.x2) =  'T';
-}
-
-
-Check_2 {
- (e.x1) t.y1 (e.x2 t.y2) 'A' ('B' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
- (e.x1) t.y1 () 'A' ('B' e.x2) =  <Check_1 (e.x1) t.y1 (e.x2)>;
- (e.x1) t.y1 (e.x2) t.y2 ('AB' e.x3) =  <Check_2 (e.x1) t.y1 (e.x2) t.y2 (e.x3)>;
- (e.x1) t.y1 (e.x2) t.y2 (e.x3 t.y3 'AB' e.x4) =  <Check_2 (e.x1) t.y1 (e.x2 t.y2 e.x3) t.y3 (e.x4)>;
- (e.x1) t.y1 (e.x2) t.y2 (e.x3) =  'T';
+Concat {
+	(e.x) = e.x;
+	(e.x1) e.x2 t.y = <Concat (e.x1) e.x2> t.y;
 }
