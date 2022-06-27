@@ -14,64 +14,51 @@ nodes = []
 links = []
 
 
-
-special_names = {
-    'expr': ['expr1', 'expr2'],
-    'stackexpr': ['stackexpr1', 'stackexpr2'],
-}
-
-
-filtered_node = ['class_', 'name']
-
-
 class GraphNode(ABC):
-    config = None
-
     def __init__(self, conf=None, **kwargs):
         self.node_id = str(uuid4())
         self._parse_params(kwargs)
         self.conf = conf
-        self.parent = None
         self.view = None
-        self.show = True
-
-    def compos(self):
-        for child in self.children:
-            links.append((self.node_id, child.node_id))
-            child.compos()
-
-        if hasattr(self, 'nodes'):
-            for node in self.nodes:
-                if not isinstance(node, str):
-                    links.append((self.node_id, node.node_id))
-                    node.compos()
-
-        if hasattr(self, 'expression'):
-            for exp in self.expression:
-                if not isinstance(exp, str):
-                    links.append((self.node_id, exp.node_id))
-                    exp.compos()
+        self.show = False
 
     def _parse_params(self, kwargs):
         self.children = [el for el in kwargs.values() if isinstance(el, GraphNode)]
         for key, value in kwargs.items():
             self.__dict__[key] = value
 
-    def __str__(self):
-        return str(type(self))
+    def _children_compos(self):
+        for child in self.children:
+            if child.show:
+                links.append((self.node_id, child.node_id))
+            child.compos()
+
+    def _check_eps(self, *args):
+        for i in args:
+            if i:
+                return True
+
+        return False
+
+    @abstractmethod
+    def compos(self):
+        pass
 
 
 class Node(GraphNode):
+    def __init__(self, conf, **kwargs):
+        super().__init__(conf, **kwargs)
+        self.show = False
+
     def compos(self):
-        for child in self.children:
-            if child.show:
-                if child.show:
-                    links.append((self.node_id, child.node_id))
-            child.compos()
+        self._children_compos()
 
         for exp in self.multi_expression:
             if not isinstance(exp, str):
                 exp.compos()
+
+        buffer = []
+        empty_count = 0
 
         restrict = []
         for node in self.nodes:
@@ -83,222 +70,214 @@ class Node(GraphNode):
                     a = i.view if not isinstance(i, str) else i
                     label += a
 
-                n_label = label
+                label = label.replace(':=', '→')
+                restrict_label = label
+
+                if restrict_label.count(' ') == len(restrict_label):
+                    restrict_label = ''
+
+                flag = 0 if not label else 1
+                for r in restrict:
+                    left, right = r.split('→')
+                    restrict_label += f';\n{left + " ≠ " + right}' if flag else f'{left + " ≠ " + right}'
+                    flag = 1
+
                 if label:
-                    for r in restrict:
-                        left, right = r.split('→')
-                        n_label += f';\n{left + " ≠ " + right}'
-
                     restrict.append(label)
+                else:
+                    empty_count += 1
 
-                links.append((self.node_id, node.node_id, n_label))
-        print(restrict)
+                if self.view and 'let' in self.view:
+                    restrict_label = node.node_data.assignment.param.view
+
+
+                buffer.append((self.node_id, node, restrict_label))
+
+            else:
+                node.compos()
 
         self.text = ''
         self.text_html = ''
 
         if self.node_data.__dict__.get('expr1'):
             text = f'''let {self.node_data.assignment.view} in {self.node_data.expr1.view}'''
-            text_html = f'''<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let {self.node_data.assignment.view}</TD></TR><TR><TD ALIGN="LEFT">    in {self.node_data.expr1.view}</TD></TR></TABLE>>'''
-            self.text_html = text_html.replace('\u03B5', '')
+            self.text_html = f'''<<TABLE BORDER="0"><TR><TD ALIGN="LEFT">let {self.node_data.assignment.view}</TD></TR><TR><TD ALIGN="LEFT">    in {self.node_data.expr1.view}</TD></TR></TABLE>>'''
             self.view = text
 
         elif self.node_data.__dict__.get('stackexpr1'):
             stackexpr1 = self.node_data.stackexpr1.view if not isinstance(self.node_data.stackexpr1, str) else self.node_data.stackexpr1
             text = f'{stackexpr1}'
-            if text != '\u03B5':
-                text = text.replace('\u03B5', '')
+
             self.view = text
         else:
-            text = 'NODE ERROR'
+            self.view = '\u03B5'
+
+        if 'let' in self.view and empty_count > 1:
+            _ = []
+            a = self.view.split()
+
+            while True:
+                if ':=' in a:
+                    idx = a.index(':=')
+                    a.pop(idx)
+
+                    res = a[idx]
+
+                    count = 1
+                    while True:
+                        if a[idx + count] not in (';', '\n', 'in') and not a[idx].endswith(';'):
+                            res += ' ' + a[idx + count]
+                            count += 1
+                        else:
+                            break
+
+                    res = res.replace(';', '')
+                    _.append((a[idx - 1], res))
+                else:
+                    break
+
+            check = 0
+
+            for start, end, label in buffer:
+                for start_, end_ in _:
+                    if end_.strip().replace(';', '') == end.view.strip().replace(';', ''):
+                        links.append((start, end.node_id, start_))
+                        check = 1
+                        break
+
+                if check == 0:
+                    links.append((start, end.node_id, label))
+                else:
+                    check = 0
+        else:
+            for start, end, label in buffer:
+                links.append((start, end.node_id, label))
 
 
 class Assignment(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-            child.compos()
+        self._children_compos()
 
         if self.conf == 'assign':
             param = self.param.view if not isinstance(self.param, str) else self.param
             expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
             assignment = self.assignment.view if not isinstance(self.assignment, str) else self.assignment
-            self.view = f'({param} → {expr1}) {assignment}'
-        elif self.conf == 'areEqual':
 
+            if not expr1:
+                expr1 = '\u03B5'
+
+            self.view = f'{param} := {expr1}; {assignment}' if assignment != '' else f'{param} := {expr1}'
+        elif self.conf == 'areEqual':
             self.view = f'(AreEqual ({self.expr1.view}) ({self.expr2.view})) {self.assignment.view}'
 
-        elif self.conf == 'nodeData_let':
-            param = self.param.view if not isinstance(self.param, str) else self.param
-            expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
-            assignment = self.assignment.view if not isinstance(self.assignment, str) else self.assignment
-            self.view = f'({param} := {expr1}) {assignment}'
 
-        if self.show:
-            dot.node(self.node_id, self.view)
 
 
 class Expr(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-        self.view = None
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-            child.compos()
+        self._children_compos()
 
         if self.conf == 'param':
             param = self.param.view if not isinstance(self.param, str) else self.param
             expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
             self.view = f'{param} {expr1}'
 
+            if self._check_eps(param, expr1):
+                self.view = f'{param} {expr1}'
+            else:
+                self.view = '\u03B5'
+
         elif self.conf == 'mul':
             expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
             expr2 = self.expr2.view if not isinstance(self.expr2, str) else self.expr2
-            self.view = f'(`*` {expr1}) {expr2}'
+
+            if self._check_eps(expr1, expr2):
+                self.view = f'(`*` {expr1}) {expr2}'
+            else:
+                self.view = '\u03B5'
 
         elif self.conf == 'call':
             expr1 = self.expr1.view if not isinstance(self.expr1, str) else self.expr1
             expr2 = self.expr2.view if not isinstance(self.expr2, str) else self.expr2
-            self.view = f'⟨{self.name} {expr1}⟩{expr2}'
 
-        if self.show:
-            dot.node(self.node_id, self.view)
+            if self._check_eps(self.name, expr1, expr2):
+                self.view = f'⟨{self.name} {expr1}⟩{expr2}'
+            else:
+                self.view = '\u03B5'
 
 
 class Param(GraphNode):
     def __init__(self, conf, **kwargs):
         super().__init__(conf, **kwargs)
-        self.show = False
         self.view = f'{self.class_}.{self.name}'
 
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-
-            child.compos()
-
-        if self.show:
-            dot.node(self.node_id, self.view)
+        self._children_compos()
 
 
 class StackExpr(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-            child.compos()
+        self._children_compos()
 
         if self.conf == 'param':
             param = self.param.view if not isinstance(self.param, str) else self.param
             stackexpr1 = self.stackexpr1.view if not isinstance(self.stackexpr1, str) else self.stackexpr1
-            self.view = f'{param} {stackexpr1}'
+
+            if self._check_eps(param, stackexpr1):
+                self.view = f'{param} {stackexpr1}'
+            else:
+                self.view = '\u03B5'
 
         elif self.conf == 'mul':
             stackexpr1 = self.stackexpr1.view if not isinstance(self.stackexpr1, str) else self.stackexpr1
             stackexpr2 = self.stackexpr2.view if not isinstance(self.stackexpr2, str) else self.stackexpr2
-            self.view = f'(`*` {stackexpr1}) {stackexpr2}'
+
+            if self._check_eps(stackexpr1, stackexpr2):
+                self.view = f'(`*` {stackexpr1}) {stackexpr2}'
+            else:
+                self.view = '\u03B5'
 
         elif self.conf == 'call':
             stackexpr1 = self.stackexpr1.view if not isinstance(self.stackexpr1, str) else self.stackexpr1
             stackexpr2 = self.stackexpr2.view if not isinstance(self.stackexpr2, str) else self.stackexpr2
-            self.view = f'⟨{self.name} {stackexpr1}⟩ {stackexpr2}'
+
+            if self._check_eps(self.name, stackexpr1, stackexpr2):
+                self.view = f'⟨{self.name} {stackexpr1}⟩ {stackexpr2}'
+            else:
+                self.view = '\u03B5'
 
         elif self.conf == 'topcall':
-            self.view = f'⟨{self.name} {self.expr1.view}⟩ {self.stackexpr1.view}'
+            if self._check_eps(self.name, self.expr1.view, self.stackexpr1.view):
+                self.view = f'⟨{self.name} {self.expr1.view}⟩ {self.stackexpr1.view}'
+            else:
+                self.view = '\u03B5'
 
-        if self.show:
-            dot.node(self.node_id, self.view)
 
 
 class NodeData(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-
-            if self.conf == 'let' and isinstance(child, Assignment):
-                child.conf = 'nodeData_let'
-            child.compos()
-        if self.show:
-            dot.node(self.node_id, 'NodeData')
+        self._children_compos()
 
 
 class Constraints(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                # dot.edge(self.node_id, child.node_id)
-                links.append((self.node_id, child.node_id))
-            child.compos()
-        if self.show:
-            dot.node(self.node_id, 'Constraints')
+        self._children_compos()
 
 
 class Negative(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-            child.compos()
-        if self.show:
-            dot.node(self.node_id, 'Negative')
+        self._children_compos()
 
 
 class SimpleNegative(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            if child.show:
-                links.append((self.node_id, child.node_id))
-            child.compos()
-        if self.show:
-            dot.node(self.node_id, 'SimpleNegative')
+        self._children_compos()
 
 
 class Loop(GraphNode):
-    def __init__(self, conf, **kwargs):
-        super().__init__(conf, **kwargs)
-        self.show = False
-
     def compos(self):
-        for child in self.children:
-            links.append((self.node_id, child.node_id))
+        self._children_compos()
 
-            child.compos()
-
-class TreeWalker:
-    def __init__(self, tree):
-        self.tree = tree
 
 
 def p_unit(p):
@@ -363,7 +342,7 @@ def p_expr(p):
             | TkOpenBracket TkCall name TkOpenBracket TkArg expr TkCloseBracket TkCloseBracket expr'''
 
     if len(p) == 1:
-        p[0] = '\u03B5'
+        p[0] = ''
 
     if len(p) == 3:
         p[0] = Expr(conf='param', param=p[1], expr1=p[2])
@@ -383,7 +362,7 @@ def p_stackexpr(p):
                  | TkOpenBracket TkCall name TkOpenBracket TkArg stackexpr TkCloseBracket TkCloseBracket stackexpr
                  | TkOpenBracket TkTopCall name TkOpenBracket TkArg expr TkCloseBracket TkCloseBracket stackexpr'''
     if len(p) == 1:
-        p[0] = '\u03B5'
+        p[0] = ''
 
     if len(p) == 3:
         p[0] = StackExpr(conf='param', param=p[1], stackexpr1=p[2])
@@ -438,7 +417,7 @@ def p_constraints(p):
                    | TkOpenBracket TkAreEqual TkOpenBracket expr TkCloseBracket TkOpenBracket expr TkCloseBracket TkCloseBracket constraints
                    | negative constraints'''
     if len(p) == 1:
-        p[0] = '\u03B5'
+        p[0] = ''
 
     if len(p) == 3:
         p[0] = Constraints(conf='negative', negative=p[1], constraints=p[2])
@@ -451,7 +430,7 @@ def p_negative(p):
     '''negative :
                 | TkOpenBracket TkOr simplenegative TkCloseBracket negative'''
     if len(p) == 1:
-        p[0] = '\u03B5'
+        p[0] = ''
 
     if len(p) == 6:
         p[0] = Negative(conf='OR', simplenegative=p[3], negative=p[5])
@@ -481,7 +460,7 @@ def p_links(p):
              | construction'''
 
     if len(p) == 1:
-        p[0] = '\u03B5'
+        p[0] = ''
 
     if len(p) == 2:
         p[0] = p[1]
@@ -559,13 +538,20 @@ for loop in loops:
                 for i in nodes:
                     if i.name == loop.name:
                         if (loop.assignment.view):
-                            links.append((node_start, i.node_id, f'{loop.assignment.view}'))
+                            label = loop.assignment.view.replace(":=", "→").replace(";", ";\n")
+                            links.append((node_start, i.node_id, label))
                         else:
                             links.append((node_start, i.node_id, '\u03B5'))
+
+
+
+
 
 def node_comparator(node):
     name = ''.join(node.name.split())
     return len(name)
+
+
 
 nodes = sorted(nodes, key=node_comparator)
 

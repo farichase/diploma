@@ -1,15 +1,15 @@
 $ENTRY Go {
-  e.Word =  <NextFibWord ( ) e.Word>;
+	e.x = <Pal e.x 'AB' <Inv e.x>>;
 }
 
-NextFibWord {
-    (e.Fib) = True;
-    (e.Fib)'A'e.ToProcess = <TestBB (e.Fib'BA')e.ToProcess>;
-    (e.Fib)'B'e.ToProcess = <TestBB (e.Fib'A')e.ToProcess>;
+Pal {
+	 = 'T';
+	t.y = 'T';
+	t.y e.x t.y = <Pal e.x>;
+	e.Z = 'F';
 }
 
-TestBB {
-   (e.Prefix 'BB' s.LastLetter) e.Suffix = False;
-   (e.Prefix 'BB')e.Suffix = False;
-   (e.Prefix)e.Suffix = <NextFibWord (e.Prefix)e.Suffix>;
+Inv {
+    = ;
+    t.y e.x = <Inv e.x> t.y;
 }
