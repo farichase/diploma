@@ -68,13 +68,11 @@ WORKDIR /backend
 
 COPY compile.sh .
 COPY mscp.sh .
-COPY test.sh .
 COPY syntaxcompl.sh .
 COPY mscpTrace.sh .
 COPY graphs.sh .
 RUN chmod +x ./compile.sh
 RUN chmod +x ./mscp.sh
-RUN chmod +x ./test.sh
 RUN chmod +x ./syntaxcompl.sh
 RUN chmod +x ./mscpTrace.sh
 RUN chmod +x ./graphs.sh
